@@ -6,77 +6,68 @@ public class Leader : Shopper
 {
     List<Vector2> path;
     Vector2 nextTarget;
+    public bool turned = false;
+    Vector3 storeTarget;
+    public GameObject nextWallFollow;
+    public bool followMouse;
 
     public override void Start()
     {
         base.Start();
-        //  nextTarget = transform.position;
-       // path = GetComponent<TestMove>().GetPath();
     }
 
     private void Update()
     {
-      //  if (path == null)
-            path = GetComponent<TestMove>().GetPath();
 
-      //  if (!GetComponent<TestMove>().sameDest() || GetComponent<TestMove>().reset)
-      //  {
-      //      path = new List<Vector2>();
-       //     path = GetComponent<TestMove>().GetPath();
-       // }
-       
+        Vector2 targetForce;
+        float fov = 40f;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            target = cam.ScreenToWorldPoint(Input.mousePosition);
+            storeTarget = target;
+        }
+        path = GetComponent<TestMove>().GetPath();
 
         //********hard coded raycast pos right now
-        Vector3 detectVisionStartAt = transform.position + transform.up * 0.55f;
-        Vector3 endVisionAt = detectVisionStartAt + transform.up * 0.55f;
-        RaycastHit2D frontVision = Physics2D.Raycast(detectVisionStartAt, transform.up, 1);
+        Vector3 detectVisionStartAt = transform.position + transform.up * 0.41f;
+       // Vector3 endVisionAt = detectVisionStartAt + transform.up;
+        Vector3 endVisionAt = detectVisionStartAt + transform.up;
+        Vector3 rightVisionAt = detectVisionStartAt + Quaternion.Euler(0, 0, fov) * transform.up;
+        RaycastHit2D frontVision = Physics2D.Raycast(detectVisionStartAt, transform.up, 1f);
+        RaycastHit2D rightVision = Physics2D.Raycast(detectVisionStartAt, Quaternion.Euler(0, 0, fov) * transform.up, 1f);
+        //  RaycastHit2D rightVision = Physics2D.Raycast(detectVisionStartAt, Quaternion.Euler(0, 0, -25) * transform.up, 0.6f);
         Debug.DrawLine(detectVisionStartAt, endVisionAt, Color.green);
-        Vector2 avoidObstacle;
+       // Debug.DrawLine(detectVisionStartAt, rightVisionAt, Color.green);
+
+        // Debug.DrawRay(detectVisionStartAt,transform.up);
+        // Debug.DrawRay(detectVisionStartAt, Quaternion.Euler(0, 0, -25) * transform.up);
+
 
         if (frontVision)
         {
-            Debug.DrawLine(detectVisionStartAt, endVisionAt, Color.yellow);
+            Vector2 targetTurningPoint = frontVision.point + frontVision.normal * 0.5f ;
+            nextWallFollow.transform.position = targetTurningPoint;
+
+            target = targetTurningPoint;
+
+            Debug.DrawLine(frontVision.point, frontVision.point + frontVision.normal*1f, Color.yellow);
            
-            avoidObstacle = AvoidObstacle(velocity);
-         //   ApplyForce(avoidObstacle);
-        }
 
-        RaycastHit2D leftVision = Physics2D.Raycast(transform.position, -transform.right, 1<<4,1);
-      //  Debug.DrawLine(transform.position, transform.position + transform.right * -1f, Color.red);
-
-        if (leftVision)
+        } else
         {
-          //    Vector3 followWall = leftVision.point + leftVision.normal;
-          //     ApplyForce(Seek(followWall, 1f));
-            Debug.DrawLine(leftVision.point, leftVision.point + leftVision.normal, Color.cyan);
-            Debug.DrawLine(transform.position, leftVision.point, Color.black);
+            if (Vector2.Distance(transform.position, target) < 0.02f)
+                target = storeTarget;
         }
 
-        RaycastHit2D rightVision = Physics2D.Raycast(endVisionAt, transform.right, 1);
-     //   Debug.DrawLine(endVisionAt, endVisionAt + transform.right, Color.blue);
+        if (followMouse)
+            targetForce = Seek(target, 1f);
+        else
+            targetForce = Seek(nextTarget, 1f);
 
-        if (rightVision)
-        {
-       //     Debug.Log("right");
-        }
-        
-
-
-        //  base.Update();
-        
-
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    target = cam.ScreenToWorldPoint(Input.mousePosition);
-        //}
-        UpdatePath();
-        Vector2 targetForce;
-        Debug.Log(nextTarget);
-
-        targetForce = Seek(nextTarget, 0);
         ApplyForce(targetForce);
 
+        UpdatePath();
         UpdateMovement();
     }
 
@@ -97,16 +88,16 @@ public class Leader : Shopper
         }
     }
 
-
-    protected Vector2 AvoidObstacle(Vector3 velocity)
+    protected Vector2 AvoidObstacle(Vector3 velocity, float angle)
     {
-        Vector3 displacement = new Vector2(0, 1f);
-        displacement = AdjustByAngle(displacement, 45, 1f);
+        Vector3 displacement = transform.up;
+        displacement = AdjustByAngle(displacement, angle, 1f);
        
         Vector3 wanderForce = velocity + displacement;
     
         return wanderForce;
     }
+
     
 
    

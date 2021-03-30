@@ -55,15 +55,15 @@ public class Shopper : MonoBehaviour
         float d = desired.magnitude;
         desired = desired.normalized;
         //slow down within some radius
-      //  if (d < r)
-      //  {
-          //  float mappedSpeed = Mathf.Lerp(0f, maxSpeed, d);
-       //     desired *= d / r * maxSpeed;
-       // }
-       // else
+       // if (d < r)
        // {
+       //     float mappedSpeed = Mathf.Lerp(0f, maxSpeed, d);
+       //     desired *= d / r * maxSpeed;
+      //  }
+      //  else
+      //  {
             desired *= maxSpeed;
-        //}
+       // }
 
         Vector2 steer = desired - velocity;
         Vector2 steerClamp = Vector3.ClampMagnitude(steer, maxForce);
