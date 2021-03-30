@@ -73,7 +73,7 @@ public class Leader : Shopper
 
     void UpdatePath()
     {
-        if (path == null)
+        if (path == null || path.Count == 0)
         {
             return;
         }

@@ -70,6 +70,37 @@ public class JumpPointSearch
         return Math.Pow(x - dest.x, 2) + Math.Pow(y - dest.y, 2);
     }
 
+    private static List<Vector2> SmoothPath(List<Vector2> path)
+    {
+        if (path.Count < 2)
+        {
+            return path;
+        }
+        
+        for (int j = path.Count - 1; j > 1; j--)
+        {
+            int startIndex = j;
+            Vector2 start = path[startIndex];
+            
+            for (int i = 0; i < path.Count - 2; i++)
+            {
+                Vector2 end = path[i];
+                Vector2 direction = new Vector2(end.x - start.x, end.y - start.y).normalized;
+                float distance = (start - end).magnitude;
+                
+                RaycastHit2D hit = Physics2D.Raycast(start, direction, distance, LayerMask.GetMask("Default"));
+                if (hit.collider == null || hit.collider.gameObject.tag.Equals("Player"))
+                {
+                    path.RemoveRange(startIndex - 1, startIndex - 1 - i);
+                    j--;
+                    break;
+                }
+            }
+        }
+
+        return path;
+    }
+
     private static List<Vector2> TracePath(Dictionary<string, CellDetail> cellDetails, Vector2 dest)
     {
         float x = dest.x;
@@ -89,7 +120,7 @@ public class JumpPointSearch
 
         path.Add(new Vector2(x, y));
 
-        return path;
+        return SmoothPath(path);
     }
 
     private static string GetListKey(float x, float y)
@@ -138,7 +169,7 @@ public class JumpPointSearch
                 double hNew = CalculateHValue(nextI, nextJ, dest);
                 double fNew = gNew + hNew;
 
-                // If it isn’t on the open list, add it to
+                // If it isnï¿½t on the open list, add it to
                 // the open list. Make the current square
                 // the parent of this square. Record the
                 // f, g, and h costs of the square cell
@@ -175,6 +206,7 @@ public class JumpPointSearch
         Vector2 directionVector = new Vector2(Math.Sign(currentI - parentI), Math.Sign(currentJ - parentJ));
         return directionVector;
     }
+    
     private static List<Vector2> Neighbors(float parentI, float parentJ, float currentI, float currentJ)
     {
         List<Vector2> neighborCells = new List<Vector2>();
@@ -401,18 +433,20 @@ public class JumpPointSearch
 
     public static List<Vector2> SearchPath(Vector3 src, Vector3 dest)
     {
-		if (!IsValid(src.x, src.y) || !IsValid(dest.x, dest.y)) {
+        if (!IsValid(src.x, src.y) || !IsValid(dest.x, dest.y))
+        {
             return null;
-		}
+        }
 
-		if (IsDestination(src.x, src.y, dest)) {
+        if (IsDestination(src.x, src.y, dest))
+        {
             return null;
-		}
+        }
 
-		// Create a closed list and initialise it to false which means
-		// that no cell has been included yet
-		// This closed list is implemented as a boolean 2D array
-		Dictionary<string, Vector2> closedList = new Dictionary<string, Vector2>();
+        // Create a closed list and initialise it to false which means
+        // that no cell has been included yet
+        // This closed list is implemented as a boolean 2D array
+        Dictionary<string, Vector2> closedList = new Dictionary<string, Vector2>();
 
         // Declare a 2D array of structure to hold the details
         //of that cell
