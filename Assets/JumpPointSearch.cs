@@ -401,20 +401,18 @@ public class JumpPointSearch
 
     public static List<Vector2> SearchPath(Vector3 src, Vector3 dest)
     {
-        //if (!IsValid(src.x, src.y) || !IsValid(dest.x, dest.y))
-        //{
-        //    throw new Exception("The search position is out of boundary");
-        //}
+		if (!IsValid(src.x, src.y) || !IsValid(dest.x, dest.y)) {
+            return null;
+		}
 
-        //if (IsDestination(src.x, src.y, dest))
-        //{
-        //    throw new Exception("The source and destination point!");
-        //}
+		if (IsDestination(src.x, src.y, dest)) {
+            return null;
+		}
 
-        // Create a closed list and initialise it to false which means
-        // that no cell has been included yet
-        // This closed list is implemented as a boolean 2D array
-        Dictionary<string, Vector2> closedList = new Dictionary<string, Vector2>();
+		// Create a closed list and initialise it to false which means
+		// that no cell has been included yet
+		// This closed list is implemented as a boolean 2D array
+		Dictionary<string, Vector2> closedList = new Dictionary<string, Vector2>();
 
         // Declare a 2D array of structure to hold the details
         //of that cell

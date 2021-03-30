@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Leader : Shopper
+public class PlayerCustomer : Shopper
 {
     List<Vector2> path;
     Vector2 nextTarget;
@@ -27,7 +27,7 @@ public class Leader : Shopper
             target = cam.ScreenToWorldPoint(Input.mousePosition);
             storeTarget = target;
         }
-        path = GetComponent<TestMove>().GetPath();
+    //    path = GetComponent<TestMove>().GetPath();
 
         //********hard coded raycast pos right now
         Vector3 detectVisionStartAt = transform.position + transform.up * 0.41f;
@@ -60,14 +60,12 @@ public class Leader : Shopper
                 target = storeTarget;
         }
 
-        if (followMouse)
-            targetForce = Seek(target, 1f);
-        else
-            targetForce = Seek(nextTarget, 1f);
+        targetForce = Seek(target, 1f);
+       
 
         ApplyForce(targetForce);
 
-        UpdatePath();
+      //  UpdatePath();
         UpdateMovement();
     }
 

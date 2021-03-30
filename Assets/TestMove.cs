@@ -39,6 +39,7 @@ public class TestMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
     Vector3 CenterPosition(Vector3 pos)
@@ -76,7 +77,10 @@ public class TestMove : MonoBehaviour
 
     public bool sameDest()
     {
-        return lastDestCenterPosition == currDestCenterPosition;
+
+        return Mathf.Approximately(lastDestCenterPosition.x, currDestCenterPosition.x) &&
+			Mathf.Approximately(lastDestCenterPosition.y, currDestCenterPosition.y) &&
+			Mathf.Approximately(lastDestCenterPosition.z, currDestCenterPosition.z) ;
     }
 
     void FixedUpdate()
@@ -92,7 +96,7 @@ public class TestMove : MonoBehaviour
         //  Vector3 destCenterPosition = grid.GetCellCenterWorld(destCellPosition);
         currDestCenterPosition = CenterPosition(bush.transform.position);
 
-        if (lastDestCenterPosition != currDestCenterPosition || reset)
+        if (!sameDest() || reset)
         {
             path = new List<Vector2>();
             ClearPathMarker();
