@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bush
+  - Obstacle
+  - Leader
+  - Follower
+  - Roll
   layers:
   - Default
   - TransparentFX
@@ -12,8 +16,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Follower
+  - Leader
   - 
   - 
   - 

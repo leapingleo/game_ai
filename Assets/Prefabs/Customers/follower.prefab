@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 384333217337452267}
   - component: {fileID: 384333217337452265}
-  - component: {fileID: 4670396916510062585}
-  m_Layer: 0
+  - component: {fileID: 1904728598}
+  m_Layer: 6
   m_Name: follower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,8 +48,8 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.53
---- !u!114 &4670396916510062585
+  m_Radius: 0.4
+--- !u!114 &1904728598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,12 +58,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 384333217337452268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058c624c9c2d0c543ba449d5ffe879b3, type: 3}
+  m_Script: {fileID: 11500000, guid: c1b3698e84e344e4abc18f43f4dd0240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  visionDistance: 0.6
+  maxSpeed: 4
   maxForce: 0.08
+  nextWallFollow: {fileID: 0}
+  velocity: {x: 0, y: 0}
   slowDownRadius: 1
+  followDistance: {x: 0, y: 0, z: 0}
+  leader: {fileID: 0}
+  followLeaderRadius: 1
 --- !u!1 &384333217759233333
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,7 +80,7 @@ GameObject:
   m_Component:
   - component: {fileID: 384333217759233332}
   - component: {fileID: 384333217759233331}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Agent_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,13 +94,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384333217759233333}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0.03, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.16, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 384333217337452267}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!212 &384333217759233331
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -134,9 +140,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a4cbc03fd06a4204c80e80031a150122, type: 3}
-  m_Color: {r: 0, g: 0.7894738, b: 1, a: 1}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: -3557554893070573299, guid: 356781659843f3f42a64f5953a69b291, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

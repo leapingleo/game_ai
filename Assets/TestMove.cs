@@ -79,8 +79,8 @@ public class TestMove : MonoBehaviour
     {
 
         return Mathf.Approximately(lastDestCenterPosition.x, currDestCenterPosition.x) &&
-			Mathf.Approximately(lastDestCenterPosition.y, currDestCenterPosition.y) &&
-			Mathf.Approximately(lastDestCenterPosition.z, currDestCenterPosition.z) ;
+            Mathf.Approximately(lastDestCenterPosition.y, currDestCenterPosition.y) &&
+            Mathf.Approximately(lastDestCenterPosition.z, currDestCenterPosition.z);
     }
 
     void FixedUpdate()
@@ -104,7 +104,7 @@ public class TestMove : MonoBehaviour
             path = JumpPointSearch.SearchPath(sourceCenterPosition, currDestCenterPosition);
             path.Reverse();
             DrawPath(path);
-          //  lastDestCenterPosition = currDestCenterPosition;
+            //  lastDestCenterPosition = currDestCenterPosition;
         }
         lastDestCenterPosition = currDestCenterPosition;
 
@@ -140,5 +140,10 @@ public class TestMove : MonoBehaviour
     public List<Vector2> GetPath()
     {
         return path;
+    }
+
+    public Vector3 FinalTarget()
+    {
+        return currDestCenterPosition;
     }
 }

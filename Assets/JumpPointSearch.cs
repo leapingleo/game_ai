@@ -76,18 +76,18 @@ public class JumpPointSearch
         {
             return path;
         }
-        
+
         for (int j = path.Count - 1; j > 1; j--)
         {
             int startIndex = j;
             Vector2 start = path[startIndex];
-            
+
             for (int i = 0; i < path.Count - 2; i++)
             {
                 Vector2 end = path[i];
                 Vector2 direction = new Vector2(end.x - start.x, end.y - start.y).normalized;
                 float distance = (start - end).magnitude;
-                
+
                 RaycastHit2D hit = Physics2D.Raycast(start, direction, distance, LayerMask.GetMask("Default"));
                 if (hit.collider == null || hit.collider.gameObject.tag.Equals("Player"))
                 {
@@ -120,7 +120,7 @@ public class JumpPointSearch
 
         path.Add(new Vector2(x, y));
 
-        return SmoothPath(path);
+        return path;
     }
 
     private static string GetListKey(float x, float y)
@@ -206,7 +206,7 @@ public class JumpPointSearch
         Vector2 directionVector = new Vector2(Math.Sign(currentI - parentI), Math.Sign(currentJ - parentJ));
         return directionVector;
     }
-    
+
     private static List<Vector2> Neighbors(float parentI, float parentJ, float currentI, float currentJ)
     {
         List<Vector2> neighborCells = new List<Vector2>();
