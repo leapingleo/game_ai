@@ -5,8 +5,8 @@ using UnityEngine;
 public class Leader : Shopper
 {
     public bool turned = false;
-    Vector3 finalTarget;
     public bool followMouse;
+    public State state;
 
     public override void Start()
     {
@@ -15,55 +15,63 @@ public class Leader : Shopper
 
     private void Update()
     {
-
-        Vector2 targetForce;
-        float fov = 40f;
-
-        path = GetComponent<TestMove>().GetPath();
-
+        //WALL FOLLOWING IMPLEMENTATION line 20 ~ line 37
         //********hard coded raycast pos right now
         Vector3 detectVisionStartAt = transform.position + transform.up * 0.41f;
         Vector3 endVisionAt = detectVisionStartAt + transform.up;
-        Vector3 rightVisionAt = detectVisionStartAt + Quaternion.Euler(0, 0, fov) * transform.up;
         RaycastHit2D frontVision = Physics2D.Raycast(detectVisionStartAt, transform.up, 1f);
-        RaycastHit2D rightVision = Physics2D.Raycast(detectVisionStartAt, Quaternion.Euler(0, 0, fov) * transform.up, 1f);
-        
         Debug.DrawLine(detectVisionStartAt, endVisionAt, Color.green);
 
-        /**
-        if (frontVision)
+        if (frontVision && frontVision.transform.CompareTag("Obstacle"))
         {
-            Vector2 targetTurningPoint = frontVision.point + frontVision.normal * 0.5f;
-           // nextWallFollow.transform.position = targetTurningPoint;
-
-            target = targetTurningPoint;
-
-            Debug.DrawLine(frontVision.point, frontVision.point + frontVision.normal * 1f, Color.yellow);
+            Vector2 targetTurningPoint = frontVision.point + frontVision.normal * 0.6f;
+            nextWallFollow.transform.position = targetTurningPoint;
+            nextTarget = targetTurningPoint;
         }
-        **/
-        
+        else
+        {
+            if (Vector2.Distance(transform.position, nextTarget) < 0.02f)
+            {
+                nextTarget = storeTarget;
+            }
+        }
 
-        float distToDest = Vector2.Distance(transform.position, GetComponent<TestMove>().FinalTarget());
+        if (state == State.TAKE_ROLL)
+        {
+            
+            TakeRoll();
+            setNewDest = true;
+            state = State.EXIT;
+        }
 
-       // if (distToDest > 0)
-       // {
+        if (state == State.LEAD)
+        {
+            path = GetComponent<TestMove>().GetPath();
+            float distToDest = Vector2.Distance(transform.position, GetComponent<TestMove>().FinalTarget());
 
-            targetForce = Seek(nextTarget, 1f, distToDest);
-            ApplyForce(targetForce);
-
+            ApplyForce(Seek(nextTarget, slowDownRadius, distToDest));
             UpdatePath();
             UpdateMovement();
-       // }
+            LookingForRolls();
+          //  if (availableRolls.Count > 0 && availableRolls[0] != null)
+          //      state = State.TAKE_ROLL;
+        }
+
+        if (state == State.EXIT)
+        {
+          //  SetNewDestination(new Vector3(17.5f, -5.5f, 0));
+        }
+
+        //reroute when something is blocked at next target pos and when not reached at the target pos yet
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(nextTarget, 0.5f);
+        if (hitColliders.Length > 0 && Vector2.Distance(transform.position, nextTarget) > 0.03f)
+            SetNewDestination(destination.position);
     }
 
-
-    protected Vector2 AvoidObstacle(Vector3 velocity, float angle)
+    public bool ReachedTarget()
     {
-        Vector3 displacement = transform.up;
-        displacement = AdjustByAngle(displacement, angle, 1f);
-
-        Vector3 wanderForce = velocity + displacement;
-
-        return wanderForce;
+        return Vector2.Distance(transform.position, destination.position) < 0.05f;
     }
+
+    
 }

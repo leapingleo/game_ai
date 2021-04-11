@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class PlayerCustomer : Shopper
 {
-    List<Vector2> path;
-    Vector2 nextTarget;
     public bool turned = false;
-    Vector3 storeTarget;
-    public bool followMouse;
 
     public override void Start()
     {
@@ -39,13 +35,13 @@ public class PlayerCustomer : Shopper
         {
             target = cam.ScreenToWorldPoint(Input.mousePosition);
             storeTarget = target;
-            finalTarget = target;
             visionDistance = 0f;
         }
 
         float distToDest = Vector2.Distance(transform.position, storeTarget);
 
-        if (rightVision && visionDistance > 0f && distToDest > 0.5f)
+        if (rightVision && rightVision.transform.CompareTag("Obstacle")&&
+            visionDistance > 0f && distToDest > 0.5f)
         {
             Vector2 targetTurningPoint = rightVision.point + rightVision.normal * (visionDistance);
             nextWallFollow.transform.position = targetTurningPoint;
@@ -58,7 +54,9 @@ public class PlayerCustomer : Shopper
                 target = storeTarget;
             }
         }
-        if (leftVision  && visionDistance >0f && distToDest > 0.5f)
+
+        if (leftVision && leftVision.transform.CompareTag("Obstacle")
+            && visionDistance >0f && distToDest > 0.5f)
         {
             Vector2 targetTurningPoint = leftVision.point + leftVision.normal * (visionDistance);
             nextWallFollow.transform.position = targetTurningPoint;
@@ -72,37 +70,9 @@ public class PlayerCustomer : Shopper
             }
         }
 
-
-
         targetForce = Seek(target, 1, distToDest);
         ApplyForce(targetForce);
         UpdateMovement();
     }
 
-    void UpdatePath()
-    {
-        if (path == null)
-        {
-            return;
-        }
-
-        Vector2 arrivingNext = path[0];
-     //   Debug.Log(arrivingNext);
-
-        if (Vector2.SqrMagnitude(arrivingNext - (Vector2)transform.position) < 0.1f)
-        {
-            path.RemoveAt(0);
-            nextTarget = path[0];
-        }
-    }
-
-    protected Vector2 AvoidObstacle(Vector3 velocity, float angle)
-    {
-        Vector3 displacement = transform.up;
-        displacement = AdjustByAngle(displacement, angle, 1f);
-       
-        Vector3 wanderForce = velocity + displacement;
-    
-        return wanderForce;
-    }
 }

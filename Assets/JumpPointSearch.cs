@@ -6,7 +6,7 @@ using UnityEngine;
 public class JumpPointSearch
 {
     public static Vector2 BORDER_MIN = new Vector2(-3.5f, -11.5f);
-    public static Vector2 BORDER_MAX = new Vector2(17.5f, 2.5f);
+    public static Vector2 BORDER_MAX = new Vector2(18.5f, 9.5f);
     public static float GRID_SIZE = 1.0f;
     public static float COLLIDER_RADIOUS = 0.5f; //should be half of the grid size
 
@@ -509,6 +509,7 @@ public class JumpPointSearch
                     cellDetails);
                 if (path != null)
                 {
+                   // path.Reverse();
                     return path;
                 }
             }

@@ -29,7 +29,6 @@ public class TestMove : MonoBehaviour
         if (path == null || path.Count == 0)
         {
             path = JumpPointSearch.SearchPath(sourceCenterPosition, currDestCenterPosition);
-            path.Reverse();
             DrawPath(path);
         }
 
@@ -52,6 +51,9 @@ public class TestMove : MonoBehaviour
 
     void DrawPath(List<Vector2> paths)
     {
+        if (paths == null || paths.Count == 0)
+            return;
+
         foreach (var p in paths)
         {
             GameObject marker = Instantiate(markerPrefab, p, quaternion.identity);
@@ -83,29 +85,41 @@ public class TestMove : MonoBehaviour
             Mathf.Approximately(lastDestCenterPosition.z, currDestCenterPosition.z);
     }
 
+    public List<Vector2> SetNewPath(Vector3 newDest)
+    {
+        Vector3 newDestCenterPos = CenterPosition(newDest);
+        currDestCenterPosition = newDestCenterPos;
+        path = new List<Vector2>();
+        ClearPathMarker();
+        objPosPair = new Dictionary<Vector2, GameObject>();
+        path = JumpPointSearch.SearchPath(CenterPosition(transform.position), newDestCenterPos);
+        DrawPath(path);
+        return path;
+    }
+
     void FixedUpdate()
     {
-        Vector2 position = transform.position;
+      //  Vector2 position = transform.position;
+       // position = new Vector3(Mathf.Round(position.x), Mathf.Round(position.y));
         //  Vector3Int sourceCellPosition = grid.WorldToCell(position);
         //  Vector3 sourceCenterPosition = grid.GetCellCenterWorld(sourceCellPosition);
-        Vector3 sourceCenterPosition = CenterPosition(position);
+      //  Vector3 sourceCenterPosition = CenterPosition(position);
 
         // Rigidbody2D destRigidbody2d = bush.GetComponent<Rigidbody2D>();
         //  Vector2 destPosition = destRigidbody2d.position;
         //   Vector3Int destCellPosition = grid.WorldToCell(destPosition);
         //  Vector3 destCenterPosition = grid.GetCellCenterWorld(destCellPosition);
-        currDestCenterPosition = CenterPosition(bush.transform.position);
+      //  currDestCenterPosition = CenterPosition(bush.transform.position);
 
-        if (!sameDest() || reset)
-        {
-            path = new List<Vector2>();
-            ClearPathMarker();
-            objPosPair = new Dictionary<Vector2, GameObject>();
-            path = JumpPointSearch.SearchPath(sourceCenterPosition, currDestCenterPosition);
-            path.Reverse();
-            DrawPath(path);
-            //  lastDestCenterPosition = currDestCenterPosition;
-        }
+        //if (!sameDest() || reset)
+        //{
+        //    path = new List<Vector2>();
+        //    ClearPathMarker();
+        //    objPosPair = new Dictionary<Vector2, GameObject>();
+        //    path = JumpPointSearch.SearchPath(sourceCenterPosition, currDestCenterPosition);
+        //    DrawPath(path);
+        //    //  lastDestCenterPosition = currDestCenterPosition;
+        //}
         lastDestCenterPosition = currDestCenterPosition;
 
 

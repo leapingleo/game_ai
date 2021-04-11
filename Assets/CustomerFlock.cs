@@ -22,7 +22,7 @@ public class CustomerFlock : MonoBehaviour
         customers[1] = customer2;
         customers[2] = customer3;
         customers[3] = customer4;
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < size; i++)
         {
 
             // List<Transform> nearbyMembers = GetNearbyObjects(customers[i]);
@@ -43,7 +43,7 @@ public class CustomerFlock : MonoBehaviour
     List<Transform> GetNearbyObjects()
     {
         List<Transform> neighbours = new List<Transform>();
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < size; i++)
         {
             neighbours.Add(customers[i].transform);
         }
@@ -56,7 +56,7 @@ public class CustomerFlock : MonoBehaviour
         Collider2D[] neighboursColliders = Physics2D.OverlapCircleAll(agent.transform.position, neighbourRadius);
         foreach (Collider2D c in neighboursColliders)
         {
-            if (c != agent.GetComponent<Shopper>().AgentCollider)
+            if (c != agent.GetComponent<Shopper>().Collider)
             {
                 neighbours.Add(c.transform);
             }
