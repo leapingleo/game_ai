@@ -89,10 +89,11 @@ public class JumpPointSearch
                 float distance = (start - end).magnitude;
 
                 RaycastHit2D hit = Physics2D.Raycast(start, direction, distance, LayerMask.GetMask("Default"));
-                if (hit.collider == null || hit.collider.gameObject.tag.Equals("Player"))
+                if (hit.collider == null)
                 {
-                    path.RemoveRange(startIndex - 1, startIndex - 1 - i);
-                    j--;
+                    int removeCount = startIndex - i - 1;
+                    path.RemoveRange(i + 1, removeCount);
+                    j = j - removeCount;
                     break;
                 }
             }
@@ -120,7 +121,7 @@ public class JumpPointSearch
 
         path.Add(new Vector2(x, y));
 
-        return path;
+        return SmoothPath(path);
     }
 
     private static string GetListKey(float x, float y)
