@@ -9,6 +9,7 @@ TagManager:
   - Leader
   - Follower
   - Roll
+  - Security
   layers:
   - Default
   - TransparentFX

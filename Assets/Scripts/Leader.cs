@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Leader : Shopper
+public class Leader : Character
 {
     public bool turned = false;
     public bool followMouse;
@@ -25,7 +25,8 @@ public class Leader : Shopper
         if (frontVision && frontVision.transform.CompareTag("Obstacle"))
         {
             Vector2 targetTurningPoint = frontVision.point + frontVision.normal * 0.6f;
-            nextWallFollow.transform.position = targetTurningPoint;
+            //nextWallFollow.transform.position = targetTurningPoint;
+            wallFollow = targetTurningPoint;
             nextTarget = targetTurningPoint;
         }
         else
