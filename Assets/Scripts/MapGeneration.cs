@@ -9,6 +9,8 @@ public class MapGeneration : MonoBehaviour
     public int numberToSpawn;
     public List<GameObject> spawnPool;
     public GameObject quad;
+    public LayerMask m_LayerMask;
+
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,11 @@ public class MapGeneration : MonoBehaviour
         //int random = Random.Range(0, objects.Length);
         //Instantiate(objects[random], transform.position, Quaternion.identity);
         spawnObjects();
+    }
+
+    void Update()
+    {
+        
     }
 
     public void spawnObjects()
@@ -29,14 +36,30 @@ public class MapGeneration : MonoBehaviour
 
         for (int i = 0; i < numberToSpawn; i++)
         {
-            randomItem = Random.Range(0, spawnPool.Count);
-            toSpawn = spawnPool[randomItem];
+            int j = 0;
+            for (; j < numberToSpawn; j++)
+            {
+                // Take a random position POS
+                // Check colision of POS with all objects,
+                //    if space available: spawn
+                randomItem = Random.Range(0, spawnPool.Count);
+                toSpawn = spawnPool[randomItem];
 
-            screenX = Random.Range(c.bounds.min.x, c.bounds.max.x);
-            screenY = Random.Range(c.bounds.min.y, c.bounds.max.y);
-            pos = new Vector2(screenX, screenY);
+                screenX = Random.Range(c.bounds.min.x, c.bounds.max.x);
+                screenY = Random.Range(c.bounds.min.y, c.bounds.max.y);
+                pos = new Vector2(screenX, screenY);
 
-            Instantiate(toSpawn, pos, toSpawn.transform.rotation);
+                GameObject spawnedObject = Instantiate(toSpawn, pos, toSpawn.transform.rotation);
+                Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2, Quaternion.identity, m_LayerMask);
+                if (hitColliders.Length != 0)
+                {
+                    Destroy(spawnedObject);
+                }
+            }
+                if (j == numberToSpawn)
+                {
+                    break;
+                }
         }
     }
 }
