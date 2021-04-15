@@ -36,6 +36,8 @@ public class SecurityController : Character
 		patrol_end = end;
 	}
 
+	//test for git desktop
+
 	void Update()
 	{
 		if (state != State.ESCORTING)
@@ -50,9 +52,18 @@ public class SecurityController : Character
 				//SetNewDestination(caughtingTarget.transform.position);
 
 				Vector3 gain = caughtingTarget.transform.position - transform.position;
+
+				float time = gain.magnitude;
+
+				Vector3 direction = caughtingTarget.transform.up;
+				direction.Normalize();
+
+				Vector3 target = caughtingTarget.transform.position + direction * time;
+
+				gain = target - transform.position;
 				gain.Normalize();
 				gain *= Time.deltaTime;
-				gain *= caughtingSpeed;
+				//gain *= caughtingSpeed;
 
 				transform.position += gain;
 
