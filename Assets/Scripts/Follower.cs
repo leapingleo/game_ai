@@ -24,19 +24,23 @@ public class Follower : Character
         float d = Vector2.Distance(transform.position, followLeaderAt);
         
         //********hard coded raycast pos right now
-        Vector3 detectVisionStartAt = transform.position + transform.up * 0.41f;
+        Vector3 detectVisionStartAt = transform.position + transform.up * 0.5f;
         Vector3 endVisionAt = detectVisionStartAt + transform.up * visionDistance;
-        frontVision = Physics2D.Raycast(detectVisionStartAt, transform.up, visionDistance);
+        frontVision = Physics2D.Raycast(detectVisionStartAt, transform.up * 0.5f, visionDistance);
         Debug.DrawLine(detectVisionStartAt, endVisionAt, Color.green);
 
         float distToLeader = Vector2.Distance(transform.position, targetInRadius);
 
         //wall following by single front vision
-        if (frontVision && frontVision.transform.CompareTag("Obstacle"))
+        if (frontVision.collider != null && frontVision.collider.tag == "Obstacle")
         {
+            maxSpeed = 0.5f;
             touchingWall = true;
             Vector2 targetTurningPoint = frontVision.point + frontVision.normal * 0.6f;
             //nextWallFollow.transform.position = targetTurningPoint;
+            GameObject marker = Instantiate(wallFollowMarker, targetTurningPoint, Quaternion.identity);
+            Destroy(marker, 0.5f);
+
             wallFollow = targetTurningPoint;
             target = targetTurningPoint;
         }
@@ -52,9 +56,9 @@ public class Follower : Character
         if (state == State.FOLLOW)
         {
             FollowLeader(distToLeader, target);
-            LookingForRolls();
-            if (availableRolls.Count > 0 && availableRolls[0] != null)
-                state = State.TAKE_ROLL;
+           
+           // if (availableRolls.Count > 0 && availableRolls[0] != null)
+            //    state = State.TAKE_ROLL;
         }
 
         if (state == State.EXIT)
@@ -64,8 +68,11 @@ public class Follower : Character
 
         if (state == State.TAKE_ROLL)
         {
-            TakeRoll();
-            state = State.EXIT;
+            TakeRollsFromShelf();
+          //  if (availableRolls.Count > 0 && availableRolls[0] != null)
+          //      TakeRoll();
+            //state = State.EXIT;
+            state = State.FOLLOW;
         }
     }
 
@@ -82,7 +89,7 @@ public class Follower : Character
                 targetForce = Seek(targetAt, slowDownRadius, d);
                 ApplyForce(targetForce * 1f);
                 Avoidance(groupManager.GetGroupMembers(), 2f);
-                Cohesion(groupManager.GetGroupMembers(), 3f);
+                Cohesion(groupManager.GetGroupMembers(), 2f);
                 Alignment(groupManager.GetGroupMembers(), 1f);
             }
             else
@@ -97,11 +104,11 @@ public class Follower : Character
             maxSpeed = 1f;
             maxForce = 0.04f;
             Avoidance(groupManager.GetGroupMembers(), 1f);
-            //if (touchingWall)
-            //{
-            //    targetForce = Seek(targetAt, slowDownRadius, d);
-            //    ApplyForce(targetForce);
-            //}
+            if (touchingWall)
+            {
+                targetForce = Seek(targetAt, slowDownRadius, d);
+                ApplyForce(targetForce);
+            }
         }
         AvoidObstacle("", 1f);
         UpdateMovement();

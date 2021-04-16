@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,17 +7,23 @@ public class Initializer : MonoBehaviour
 	public GameObject emptyShelfPrefab_0;
 	public GameObject paperRollPrefab;
 	public SecurityController securityPrefab;
+	public GameObject shelfLocationManager;
 
 	void Start()
 	{
 		InitializeEmptyShelves();
-		InitializePaperRolls();
-		InitializeSecurities();
+		//InitializePaperRolls();
+		//InitializeSecurities();
 	}
 
 	void InitializeEmptyShelves()
 	{
-		Instantiate(emptyShelfPrefab_0, new Vector3(4.666f, 2.057f, 0), Quaternion.Euler(Vector3.zero)).name = "Empty Shelf 0";
+        for (int i = 0; i < shelfLocationManager.transform.childCount; i++)
+        {
+			Instantiate(emptyShelfPrefab_0, shelfLocationManager.transform.GetChild(i).transform.position,
+				Quaternion.Euler(Vector3.zero)).name = "Empty Shelf 0";
+		}
+		
 	}
 
 	void InitializePaperRolls()

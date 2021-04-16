@@ -6,7 +6,7 @@ public class Character : MonoBehaviour
 {
 	protected GroupManager groupManager;
 
-	public enum State { FOLLOW, EXIT, TAKE_ROLL, LEAD, CAUGHT };
+	public enum State { IDLE, FOLLOW, EXIT, TAKE_ROLL, SEARCH_ROLL, FETCH_ROLL, CAUGHT, SEARCH_STEAL_TARGET, STEAL };
 	public Collider2D Collider { get { return shopper_collider; } }
 	public float visionDistance;
 	public float maxSpeed;
@@ -33,6 +33,8 @@ public class Character : MonoBehaviour
 	protected bool setNewDest = true;
 	public bool HasRoll { get { return hasRoll; } }
 
+	public GameObject wallFollowMarker;
+
 	public virtual void Start()
 	{
 		acceleration = Vector3.zero;
@@ -55,7 +57,7 @@ public class Character : MonoBehaviour
 		this.groupManager = groupManager;
 	}
 
-	protected void LookingForRolls()
+	protected void TakeRollsFromShelf()
 	{
 		availableRolls = new List<GameObject>();
 		Collider2D[] neighboursColliders = Physics2D.OverlapCircleAll(transform.position, 2f);
@@ -63,11 +65,15 @@ public class Character : MonoBehaviour
 		foreach (Collider2D c in neighboursColliders)
 		{
 			//only rolls add to list when it's not taken
-			if (c.CompareTag("Roll") && c.transform.parent == null)
+			if (c.CompareTag("Roll") && !c.transform.parent.CompareTag("Follower")
+				&& !c.transform.parent.CompareTag("Leader"))
 			{
 				availableRolls.Add(c.transform.gameObject);
 			}
 		}
+
+		if (!HasRoll)
+			TakeRoll();
 	}
 
 	protected void Avoidance(List<Transform> nearbyMember, float strength)
@@ -157,16 +163,19 @@ public class Character : MonoBehaviour
 
 	protected void SetNewDestination(Vector3 dest)
 	{
-		if (setNewDest)
-		{
-			setNewDest = false;
+		//if (setNewDest)
+		//{
+		//	setNewDest = false;
 			path = GetComponent<TestMove>().SetNewPath(dest);
-			nextTarget = path[path.Count - 1];
-		}
-		float d = Vector2.Distance(transform.position, dest);
-		ApplyForce(Seek(nextTarget, slowDownRadius, d));
-		UpdatePath();
-		UpdateMovement();
+
+			if (path != null || path.Count > 0)
+				nextTarget = path[path.Count - 1];
+		//}
+
+		//float d = Vector2.Distance(transform.position, dest);
+		//ApplyForce(Seek(nextTarget, slowDownRadius, d));
+		//UpdatePath();
+		//UpdateMovement();
 	}
 
 	protected void ApplyForce(Vector2 force)
@@ -182,6 +191,7 @@ public class Character : MonoBehaviour
 		}
 		path.Reverse();
 
+
 		Vector2 arrivingNext = path[0];
 
 		if (Vector2.SqrMagnitude(arrivingNext - (Vector2)transform.position) < 0.05f)
@@ -193,15 +203,17 @@ public class Character : MonoBehaviour
 			//	In this case, the game object should be destroyed and removed from the scene.
 			//	More importantly, the elements in the array should never be accessed ANY MORE in this case.
 
-			if (path.Count == 0)
+			//if (path.Count == 0)
+			//{
+			//groupManager.UnRegister(this);
+			//Destroy(this.gameObject);
+			//	return;
+			//}
+			if (path.Count > 0)
 			{
-				groupManager.UnRegister(this);
-				Destroy(this.gameObject);
-				return;
+				nextTarget = path[0];
+				storeTarget = nextTarget;
 			}
-
-			nextTarget = path[0];
-			storeTarget = nextTarget;
 		}
 	}
 
