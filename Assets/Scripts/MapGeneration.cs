@@ -49,8 +49,8 @@ public class MapGeneration : MonoBehaviour
                 screenY = Random.Range(c.bounds.min.y, c.bounds.max.y);
                 pos = new Vector2(screenX, screenY);
 
-                GameObject spawnedObject = Instantiate(toSpawn, pos, toSpawn.transform.rotation);
-                Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2, Quaternion.identity, m_LayerMask);
+                GameObject spawnedObject = Instantiate(toSpawn, pos, toSpawn.transform.rotation) ;
+                Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale * 5, Quaternion.identity, m_LayerMask);
                 if (hitColliders.Length != 0)
                 {
                     Destroy(spawnedObject);
@@ -62,11 +62,11 @@ public class MapGeneration : MonoBehaviour
                 }
         }
     }
-    private void destroyobjects()
-    {
-        foreach (GameObject o in GameObject.FindGameObjectsWithTag("Spawnable"))
-        {
-            Destroy(o);
-        }
-    }
+    //private void DestroyObjects()
+    //{
+    //    foreach (GameObject o in GameObject.FindGameObjectsWithTag("Spawnable"))
+    //    {
+    //        Destroy(o);
+    //    }
+    //}
 }
