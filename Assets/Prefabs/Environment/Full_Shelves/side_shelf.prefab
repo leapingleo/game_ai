@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1627576721143708289}
   - component: {fileID: 1160712277556697619}
   - component: {fileID: 757434706123579961}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: side_shelf
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -952790171
+  m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: 3476930722876349107, guid: dde75d6aed9104f25aa328feedd22d04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

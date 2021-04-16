@@ -31,35 +31,51 @@ public class MapGeneration : MonoBehaviour
         GameObject toSpawn;
         MeshCollider c = quad.GetComponent<MeshCollider>();
 
+
+
         float screenX, screenY;
         Vector2 pos;
 
+
+
         for (int i = 0; i < numberToSpawn; i++)
         {
-            int j = 0;
-            for (; j < numberToSpawn; j++)
+            int retries = 0;
+            
+
+
+            while (retries < numberToSpawn)
             {
                 // Take a random position POS
                 // Check colision of POS with all objects,
                 //    if space available: spawn
                 randomItem = Random.Range(0, spawnPool.Count);
+
+
+
                 toSpawn = spawnPool[randomItem];
+
+
 
                 screenX = Random.Range(c.bounds.min.x, c.bounds.max.x);
                 screenY = Random.Range(c.bounds.min.y, c.bounds.max.y);
                 pos = new Vector2(screenX, screenY);
 
-                GameObject spawnedObject = Instantiate(toSpawn, pos, toSpawn.transform.rotation) ;
-                Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale * 5, Quaternion.identity, m_LayerMask);
+
+
+                
+                Collider2D[] hitColliders = Physics2D.OverlapBoxAll(pos, new Vector2(5.0f, 5.0f), 0.0f, LayerMask.GetMask("Spawned"));
+                GameObject spawnedObject = Instantiate(toSpawn, pos, toSpawn.transform.rotation);
                 if (hitColliders.Length != 0)
                 {
                     Destroy(spawnedObject);
+                    retries++;
                 }
-            }
-                if (j == numberToSpawn)
+                else
                 {
                     break;
                 }
+            }
         }
     }
     //private void DestroyObjects()

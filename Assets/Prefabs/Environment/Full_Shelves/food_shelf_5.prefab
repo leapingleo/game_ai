@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7911939643144480964}
   - component: {fileID: 7563829749071344157}
   - component: {fileID: 5312447523942910909}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: food_shelf_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,9 +69,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -952790171
+  m_SortingLayer: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -7881225080878102015, guid: dde75d6aed9104f25aa328feedd22d04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -100,7 +100,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.41, y: 0.99}
+    oldSize: {x: 1.38, y: 0.99}
     newSize: {x: 1.41, y: 0.99}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

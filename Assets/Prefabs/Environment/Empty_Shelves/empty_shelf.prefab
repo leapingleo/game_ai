@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3194392524943638882}
   - component: {fileID: 8629864573515720885}
   - component: {fileID: 5109323301864691990}
-  m_Layer: 0
-  m_Name: empty_shelf_2
+  m_Layer: 3
+  m_Name: empty_shelf
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

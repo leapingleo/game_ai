@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6929778833501789907}
   - component: {fileID: 4649660162617358820}
   - component: {fileID: 6028388822914215057}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: fruit_n_veg_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,9 +69,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -952790171
+  m_SortingLayer: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -18820146108515968, guid: 380c134aeb58043738eff8cbf0c9e223, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4918338113925230488}
   - component: {fileID: 8581328931233566761}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Checkout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   m_Component:
   - component: {fileID: 756140800681764787}
   - component: {fileID: 3258321270265853526}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: shop_tileset_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3138193054880490453}
   - component: {fileID: 7485157793410766422}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: shop_tileset_12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
