@@ -12,13 +12,15 @@ public class CustomerBehaviour : MonoBehaviour
     public Rigidbody2D rb;
     //[SerializeField]
     //float range;
-    [SerializeField]
+    //[SerializeField]
     //float maxDistance;
 
     private bool isWandering = false;
     private bool isRotatingLeft = false;
     private bool isRotatingRight = false;
     private bool isWalking = false;
+    public Collision2D collision;
+    public bool collide = false;
 
     Vector2 wayPoint;
     // Start is called before the first frame update
@@ -28,7 +30,6 @@ public class CustomerBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    [System.Obsolete]
     void Update()
     {
         //transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
@@ -40,23 +41,34 @@ public class CustomerBehaviour : MonoBehaviour
         {
             StartCoroutine(Wander());
         }
-        if (isRotatingRight == true) //Needs to be fixed
+        if (isRotatingRight == true) 
         {
-            //transform.Rotate(transform.up * Time.deltaTime * rotSpeed);
-            //transform.RotateAround(transform.position, 1);
+            transform.Rotate(new Vector3(0, 0, 1) * Time.deltaTime * rotSpeed);
 
         }
-        if (isRotatingLeft == true) //Needs to be fixed!
+        if (isRotatingLeft == true) 
         {
-            //transform.Rotate(transform.up * Time.deltaTime * -rotSpeed);
+            transform.Rotate(new Vector3(0, 0, -1) * Time.deltaTime * rotSpeed);
         }
         if (isWalking == true)
         {
-            transform.position += transform.forward * speed * Time.deltaTime;
+            transform.position += transform.up * speed * Time.deltaTime;
+        }
+        if (collide == true) //NEEDS TO BE FIXED
+        {
+            transform.Rotate(new Vector3(0, 0, -1) * Time.deltaTime * rotSpeed);
         }
 
     }
-IEnumerator Wander()
+    public void OnCollisionEnter2D(Collision2D collision)//NEEDS TO BE FIXED
+    {
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            collide = true;
+        }
+    }
+
+    IEnumerator Wander()
     { 
         int rotTime = Random.Range(1, 3);
         int rotateWait = Random.Range(1, 3);
@@ -65,6 +77,7 @@ IEnumerator Wander()
         int WalkTime = Random.Range(1, 5);
 
         isWandering = true;
+        collide = true;//NEEDS TO BE FIXED
 
         yield return new WaitForSeconds(walkWait);
         isWalking = true;
@@ -84,7 +97,7 @@ IEnumerator Wander()
             isRotatingLeft = false;
         }
         isWandering = false;
-
+        collide = false;//NEEDS TO BE FIXED
     }
 }
 //    void SetNewDestiation()
