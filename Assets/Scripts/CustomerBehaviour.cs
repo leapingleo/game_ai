@@ -64,7 +64,7 @@ public class CustomerBehaviour : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            collide = true;
+            this.transform.Rotate(transform.rotation.x, transform.rotation.y, transform.rotation.z - 90);
         }
     }
 
@@ -77,7 +77,7 @@ public class CustomerBehaviour : MonoBehaviour
         int WalkTime = Random.Range(1, 5);
 
         isWandering = true;
-        collide = false;//NEEDS TO BE FIXED
+        //collide = false;//NEEDS TO BE FIXED
 
         yield return new WaitForSeconds(walkWait);
         isWalking = true;
@@ -97,11 +97,11 @@ public class CustomerBehaviour : MonoBehaviour
             isRotatingLeft = false;
         }
         
-        if (collide == true)//NEEDS TO BE FIXED
-        {
-            isWalking = false;
-            yield return new WaitForSeconds(rotTime);
-        }
+        //if (collide == true)//NEEDS TO BE FIXED
+        //{
+        //    isWalking = false;
+        //    yield return new WaitForSeconds(rotTime);
+        //}
         isWandering = false;
     }
 }

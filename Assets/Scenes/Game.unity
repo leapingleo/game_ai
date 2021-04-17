@@ -5333,6 +5333,7 @@ GameObject:
   - component: {fileID: 1017855876}
   - component: {fileID: 1017855877}
   - component: {fileID: 1017855878}
+  - component: {fileID: 1017855879}
   m_Layer: 3
   m_Name: topdown characters_1
   m_TagString: Player
@@ -5399,7 +5400,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017855872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15, y: -1.61, z: 0}
+  m_LocalPosition: {x: 7.25, y: -9.61, z: 0}
   m_LocalScale: {x: 0.32110417, y: 0.32110417, z: 0.32110417}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5485,6 +5486,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!68 &1017855879
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017855872}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -1.005, y: 0}
+  - {x: 1.005, y: 0}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &1021211406 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6423689158234714164, guid: 4949cfc2e83faa54c8089c6ea7324068, type: 3}
