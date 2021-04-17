@@ -90,7 +90,9 @@ public class Leader : Character
 
         if (securityDetected)
         {
-            if (state == State.EXIT || (state == State.FETCH_ROLL && currentRollsOnHand > 0))
+            if (state == State.EXIT || 
+                (state == State.FETCH_ROLL && currentRollsOnHand > 0) ||
+                (state == State.SEARCH_ROLL && currentRollsOnHand > 0))
             {
                 state = State.FLEE;
             }
