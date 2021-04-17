@@ -60,7 +60,7 @@ public class CustomerBehaviour : MonoBehaviour
         //}
 
     }
-    public void OnCollisionEnter2D(Collision2D collision)//NEEDS TO BE FIXED
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Obstacle")
         {
