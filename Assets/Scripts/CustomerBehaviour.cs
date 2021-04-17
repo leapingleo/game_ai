@@ -54,10 +54,10 @@ public class CustomerBehaviour : MonoBehaviour
         {
             transform.position += transform.up * speed * Time.deltaTime;
         }
-        if (collide == true) //NEEDS TO BE FIXED
-        {
-            transform.Rotate(new Vector3(0, 0, -1) * Time.deltaTime * rotSpeed);
-        }
+        //if (collide == true) //NEEDS TO BE FIXED
+        //{
+        //    transform.Rotate(new Vector3(0, 0, -1) * Time.deltaTime * rotSpeed);
+        //}
 
     }
     public void OnCollisionEnter2D(Collision2D collision)//NEEDS TO BE FIXED
@@ -77,7 +77,7 @@ public class CustomerBehaviour : MonoBehaviour
         int WalkTime = Random.Range(1, 5);
 
         isWandering = true;
-        collide = true;//NEEDS TO BE FIXED
+        collide = false;//NEEDS TO BE FIXED
 
         yield return new WaitForSeconds(walkWait);
         isWalking = true;
@@ -96,8 +96,13 @@ public class CustomerBehaviour : MonoBehaviour
             yield return new WaitForSeconds(rotTime);
             isRotatingLeft = false;
         }
+        
+        if (collide == true)//NEEDS TO BE FIXED
+        {
+            isWalking = false;
+            yield return new WaitForSeconds(rotTime);
+        }
         isWandering = false;
-        collide = false;//NEEDS TO BE FIXED
     }
 }
 //    void SetNewDestiation()
