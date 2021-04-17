@@ -37,7 +37,6 @@ public class PlayerCustomer : Character
 			storeTarget = target;
 			visionDistance = 0f;
 		}
-		
 
 		float distToDest = Vector2.Distance(transform.position, storeTarget);
 	
@@ -109,6 +108,19 @@ public class PlayerCustomer : Character
 		Vector2 targetForce = Seek(target, 1, dist);
 		ApplyForce(targetForce);
 		UpdateMovement();
+
+		if (Input.GetKeyDown(KeyCode.A))
+        {
+			state = State.FETCH_ROLL;
+        }
+		if (Input.GetKeyDown(KeyCode.S))
+        {
+			state = State.SEARCH_STEAL_TARGET;
+        }
+		if (Input.GetKeyDown(KeyCode.F))
+        {
+			state = State.FOLLOW;
+        }
 	}
 
 }

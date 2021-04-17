@@ -98,15 +98,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visionDistance: 0.6
-  maxSpeed: 2
+  maxSpeed: 3
   maxForce: 0.08
   visionAngle: 0
   slowDownRadius: 1
-  destination: {fileID: 0}
   velocity: {x: 0, y: 0}
   wallFollowMarker: {fileID: 345692546726818609, guid: 3fe2a3955773b2e478c1f8e3409b0619, type: 3}
-  followDistance: {x: 0, y: 0, z: 0}
   state: 1
+  followDistance: {x: 0, y: 0, z: 0}
   wanderRaidus: 2
 --- !u!58 &1238571008412327916
 CircleCollider2D:

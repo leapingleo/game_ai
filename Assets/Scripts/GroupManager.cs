@@ -32,9 +32,18 @@ public class GroupManager : MonoBehaviour
 			Character follower = Instantiate(followerPrefab, Leader.transform.position + Random.insideUnitSphere * GroupDensity * GroupSize, Quaternion.Euler(Vector3.zero));
 			follower.name = "Follower " + i;
 			follower.SetGroupManager(this);
+			follower.SetLeader(_leader);
 			_members.Add(follower);
 		}
 	}
+
+	void Update()
+    {
+        foreach (var member in _members)
+        {
+			member.SetState(_leader.state);
+        }
+    }
 
 	public List<Transform> GetGroupMembers()
 	{

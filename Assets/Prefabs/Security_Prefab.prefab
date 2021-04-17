@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8962160106925583802}
   - component: {fileID: 6323984811171990089}
   - component: {fileID: 40552102205423437}
-  - component: {fileID: -5024444216145248139}
+  - component: {fileID: -6084490890597416513}
   m_Layer: 0
   m_Name: Security_Prefab
   m_TagString: Security
@@ -121,16 +121,12 @@ MonoBehaviour:
   maxForce: 0.08
   visionAngle: 0
   slowDownRadius: 1
-  destination: {fileID: 0}
   velocity: {x: 0, y: 0}
   wallFollowMarker: {fileID: 0}
-  state: 0
   state: 0
   patrol_start: {x: 1.7, y: -3, z: 0}
   patrol_end: {x: 2.7, y: -2, z: 0}
   caughtingRadius: 4
-  caughtingSpeed: 3.5
-  speed: 5
 --- !u!95 &6323984811171990089
 Animator:
   serializedVersion: 3
@@ -166,7 +162,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!50 &-5024444216145248139
+--- !u!50 &-6084490890597416513
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
