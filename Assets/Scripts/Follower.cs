@@ -8,15 +8,10 @@ public class Follower : Character
     public Vector3 followDistance;
     private bool touchingWall = false;
    // private RaycastHit2D frontVision;
-    public State state;
     public float wanderRaidus = 3f;
 
 	void Update()
     {
-		if (state == State.CAUGHT)
-		{
-            return;
-		}
         Vector2 followLeaderAt = groupManager.Leader.transform.position - groupManager.Leader.transform.up * 1.5f;
 
         Vector2 targetInRadius = groupManager.Leader.transform.position;
@@ -56,23 +51,55 @@ public class Follower : Character
         if (state == State.FOLLOW)
         {
             FollowLeader(distToLeader, target);
-           
-           // if (availableRolls.Count > 0 && availableRolls[0] != null)
-            //    state = State.TAKE_ROLL;
         }
 
-        if (state == State.EXIT)
-        {
-            SetNewDestination(new Vector3(17.5f, -5.5f, 0));
-        }
 
-        if (state == State.TAKE_ROLL)
+        if (state == State.FETCH_ROLL)
         {
-            TakeRollsFromShelf();
+            SearchShelf();
           //  if (availableRolls.Count > 0 && availableRolls[0] != null)
           //      TakeRoll();
-            //state = State.EXIT;
-            state = State.FOLLOW;
+          //state = State.EXIT;
+          //  state = State.FOLLOW;
+        }
+        if (state == State.SEARCH_STEAL_TARGET)
+        {
+            if (StealTargetNearby() != null)
+            {
+                state = State.STEAL;
+                targetToStealFrom = StealTargetNearby();
+
+                storeTarget = targetToStealFrom.position;
+                SetNewDestination(targetToStealFrom.position);
+            }
+        }
+        if (state == State.STEAL)
+        {
+            if (targetToStealFrom != null && targetToStealFrom.childCount < 1)
+                targetToStealFrom = null;
+
+            //if a stealable target is removed by the security or the target no longer has a roll, go back to search state
+            if (targetToStealFrom == null || targetToStealFrom.childCount < 1)
+            {
+                state = State.SEARCH_STEAL_TARGET;
+                return;
+            }
+            else
+            {
+                float dist = Vector2.Distance(transform.position, targetToStealFrom.position);
+                Debug.Log("Next tar " + nextTarget);
+                //   if (dist > 3f)
+                MoveTowardsTarget(nextTarget, dist);
+
+                if (dist < 3f)
+                {
+                    MoveTowardsTarget(storeTarget, dist);
+                }
+                if (dist < 1f)
+                {
+                    StealTarget();
+                }
+            }
         }
     }
 
@@ -110,7 +137,7 @@ public class Follower : Character
                 ApplyForce(targetForce);
             }
         }
-        AvoidObstacle("", 1f);
+       // AvoidObstacle("", 1f);
         UpdateMovement();
     }
 

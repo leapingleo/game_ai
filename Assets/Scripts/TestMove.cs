@@ -77,7 +77,6 @@ public class TestMove : MonoBehaviour
 
 	public bool SameDest()
 	{
-
 		return Mathf.Approximately(lastDestCenterPosition.x, currDestCenterPosition.x) &&
 			Mathf.Approximately(lastDestCenterPosition.y, currDestCenterPosition.y) &&
 			Mathf.Approximately(lastDestCenterPosition.z, currDestCenterPosition.z);

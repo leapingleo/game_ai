@@ -13,11 +13,7 @@ public class Leader : Character
     public GameObject shelfLocationManager;
     public GameObject exitManager;
     int currentVisitIndex;
-    private bool canFetchOneRollFromShelf;
     int desiredNumberOfRolls;
-    int currentRollsOnHand;
-    private bool isStealSuccess = false;
-    private Transform targetToStealFrom;
     private Vector3 exitLocation;
     private bool securityDetected = false;
     private Vector3 securityPosition = Vector2.zero;
@@ -201,7 +197,7 @@ public class Leader : Character
             }
 
          
-            if (isStealSuccess)
+            if (trySteal)
             {
                 state = State.EXIT;
                 SetNewDestination(exitLocation);
@@ -228,12 +224,7 @@ public class Leader : Character
         SetNewDestination(shelfLocationKey.ElementAt(currentVisitIndex).Key);
     }
 
-    private void MoveTowardsTarget(Vector2 target, float distToTarget)
-    {
-        ApplyForce(Seek(target, slowDownRadius, distToTarget));
-        UpdatePath();
-        UpdateMovement();
-    }
+    
 
     private int NumberOfStealableNearby()
     {
@@ -250,45 +241,8 @@ public class Leader : Character
         return stealableTargets;
     }
 
-    private Transform StealTargetNearby()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(nextTarget, 15f);
-        List<Transform> stealableTargets = new List<Transform>();
 
-        foreach (var c in hitColliders)
-        {
-            if (c != GetComponent<Collider2D>() && c.CompareTag("AICustomer") && c.transform.childCount > 0)
-            {
-                stealableTargets.Add(c.transform);
-            }
-        }
-        if (stealableTargets.Count > 0)
-            return stealableTargets[0];
-
-        return null;
-    }
-
-    private void StealTarget()
-    {
-
-        if (isStealSuccess)
-            return;
-
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1.5f);
-        foreach (var c in hitColliders)
-        {
-            if (c.CompareTag("AICustomer"))
-            {
-                if (c.transform.childCount > 0)
-                {
-                    isStealSuccess = true;
-                    GameObject roll = c.transform.GetChild(0).gameObject;
-                    roll.transform.parent = transform;
-                    roll.transform.position = transform.position;
-                }
-            }
-        }
-    }
+   
 
     private bool CheckAllShelvesVisited()
     {
@@ -298,34 +252,6 @@ public class Leader : Character
                 return false;
         }
         return true;
-    }
-
-    void SearchShelf()
-    {
-        if (!canFetchOneRollFromShelf)
-            return;
-
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 2f);
-        foreach (var c in hitColliders)
-        {
-            if (c.transform.CompareTag("Shelf"))
-            {
-                if (c.transform.childCount > 0 && !hasRoll)
-                {
-                    canFetchOneRollFromShelf = false;
-                    currentRollsOnHand++;
-                    GameObject roll = c.transform.GetChild(0).gameObject;
-                    roll.transform.parent = transform;
-                    roll.transform.position = transform.position;
-                }
-            }
-        }
-         
-    }
-
-    public bool ReachedTarget()
-    {
-        return Vector2.Distance(transform.position, destination.position) < 0.05f;
     }
 
     private void detectSecurities()
@@ -356,15 +282,6 @@ public class Leader : Character
         float dist = Vector2.Distance(transform.position, target);
         MoveTowardsTarget(target, dist);
     }
-
-
-
-
-
-
-
-
-
 
 
     /**
