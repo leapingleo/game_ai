@@ -88,7 +88,8 @@ public class JumpPointSearch
                 Vector2 direction = new Vector2(end.x - start.x, end.y - start.y).normalized;
                 float distance = (start - end).magnitude;
 
-                RaycastHit2D hit = Physics2D.Raycast(start, direction, distance, LayerMask.GetMask("Default"));
+                string[] scanLayers = {"Default", "Follower", "Leader"};
+                RaycastHit2D hit = Physics2D.Raycast(start, direction, distance, LayerMask.GetMask(scanLayers));
                 if (hit.collider == null)
                 {
                     int removeCount = startIndex - i - 1;
