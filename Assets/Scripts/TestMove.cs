@@ -39,7 +39,7 @@ public class TestMove : MonoBehaviour
 		lastDestCenterPosition = currDestCenterPosition;
 	}
 
-	Vector3 CenterPosition(Vector3 pos)
+	public Vector3 CenterPosition(Vector3 pos)
 	{
 		Vector3Int cellPosition = grid.WorldToCell(pos);
 		Vector3 centerPosition = grid.GetCellCenterWorld(cellPosition);
@@ -75,7 +75,7 @@ public class TestMove : MonoBehaviour
 		}
 	}
 
-	public bool sameDest()
+	public bool SameDest()
 	{
 
 		return Mathf.Approximately(lastDestCenterPosition.x, currDestCenterPosition.x) &&
@@ -85,14 +85,17 @@ public class TestMove : MonoBehaviour
 
 	public List<Vector2> SetNewPath(Vector3 newDest)
 	{
+		List<Vector2> p;
 		Vector3 newDestCenterPos = CenterPosition(newDest);
+		Vector3 currCenterPos = CenterPosition(transform.position);
 		currDestCenterPosition = newDestCenterPos;
 
 		ClearPathMarker();
 		objPosPair = new Dictionary<Vector2, GameObject>();
-		path = JumpPointSearch.SearchPath(CenterPosition(transform.position), newDestCenterPos);
-		DrawPath(path);
-		return path;
+
+		p = JumpPointSearch.SearchPath(currCenterPos, newDestCenterPos);
+		DrawPath(p);
+		return p;
 	}
 
 	void FixedUpdate()

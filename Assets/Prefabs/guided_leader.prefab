@@ -117,7 +117,7 @@ MonoBehaviour:
   maxForce: 0.08
   visionAngle: 75
   slowDownRadius: 1
-  nextWallFollow: {fileID: 0}
   destination: {fileID: 0}
   velocity: {x: 0, y: 0}
+  wallFollowMarker: {fileID: 345692546726818609, guid: 85d94dd6c027a6b4082f776c571c6355, type: 3}
   turned: 0

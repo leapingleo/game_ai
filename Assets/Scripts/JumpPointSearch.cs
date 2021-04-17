@@ -12,6 +12,7 @@ public class JumpPointSearch
 
     private static Dictionary<double, Vector2> pPair;
 
+
     private static bool IsInsideBox(Vector2 point, Vector2 boxMin, Vector2 boxMax)
     {
         float x = point.x;
@@ -43,7 +44,7 @@ public class JumpPointSearch
                 GameObject gameObject = hitCollider.gameObject;
                 string tag = gameObject.tag;
 
-                if (tag.Equals("Player") || tag.Equals("Bush"))
+                if (tag.Equals("AICustomer") || tag.Equals(""))
                 {
                     return true;
                 }

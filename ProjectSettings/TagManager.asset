@@ -10,6 +10,8 @@ TagManager:
   - Follower
   - Roll
   - Security
+  - Shelf
+  - AICustomer
   layers:
   - Default
   - TransparentFX
