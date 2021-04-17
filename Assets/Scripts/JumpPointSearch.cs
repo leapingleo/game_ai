@@ -11,7 +11,7 @@ public class JumpPointSearch
     public static float COLLIDER_RADIOUS = 0.5f; //should be half of the grid size
 
     private static Dictionary<double, Vector2> pPair;
-
+    
     private static bool IsInsideBox(Vector2 point, Vector2 boxMin, Vector2 boxMax)
     {
         float x = point.x;
@@ -42,8 +42,8 @@ public class JumpPointSearch
                 Collider2D hitCollider = hitColliders[i];
                 GameObject gameObject = hitCollider.gameObject;
                 string tag = gameObject.tag;
-
-                if (!tag.Equals("Player") && !tag.Equals("Security"))
+                
+                if (!tag.Equals("AICustomer") && !tag.Equals("Security"))
                 {
                     return false;
                 }

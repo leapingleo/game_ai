@@ -21,7 +21,7 @@ public class GroupManager : MonoBehaviour
 	{
 		_members = new List<Character>();
 
-		_leader = Instantiate(leaderPrefab, new Vector3(2.5f, -2.5f, 0), Quaternion.Euler(Vector3.zero));
+		_leader = Instantiate(leaderPrefab, transform.position, Quaternion.Euler(Vector3.zero));
 		_leader.name = "Leader";
 		_leader.SetGroupManager(this);
 

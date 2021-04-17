@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SecurityController : Character
 {
-	new private enum State { PATROLLING_GO, PATROLLING_BACK, CAUGHTING, ESCORTING };
-	private State state;
+	new public enum State { PATROLLING_GO, PATROLLING_BACK, CAUGHTING, ESCORTING };
+	public State state;
 
 	public Vector3 patrol_start;
 	public Vector3 patrol_end;
 	public float caughtingRadius;
-	public float caughtingSpeed = 3.0f;
+	public float caughtingSpeed = 4.0f;
 
 	public float speed;
 
@@ -18,8 +18,8 @@ public class SecurityController : Character
 
 	Animator animator;
 
-	private Follower caughtFollower;
-	private Follower caughtingTarget;
+	private GameObject caughtFollower;
+	private GameObject caughtingTarget;
 
 	// Start is called before the first frame update
 	new void Start()
@@ -36,6 +36,8 @@ public class SecurityController : Character
 		patrol_end = end;
 	}
 
+	//test for git desktop
+
 	void Update()
 	{
 		if (state != State.ESCORTING)
@@ -48,18 +50,37 @@ public class SecurityController : Character
 
 				//setNewDest = true;
 				//SetNewDestination(caughtingTarget.transform.position);
-
 				Vector3 gain = caughtingTarget.transform.position - transform.position;
-				gain.Normalize();
-				gain *= Time.deltaTime;
-				gain *= caughtingSpeed;
+				if (caughtingTarget.GetComponent<Character>().velocity.magnitude > 0.1f)
+				{
+					float time = gain.magnitude;
+					Vector3 direction = caughtingTarget.transform.up;
+					direction.Normalize();
 
-				transform.position += gain;
+					Vector3 target = caughtingTarget.transform.position + direction * time;
 
-				gain.Normalize();
+					gain = target - transform.position;
+					gain.Normalize();
+					gain *= Time.deltaTime;
+					//gain *= caughtingSpeed;
+
+					//transform.position += gain;
+
+					//gain.Normalize();
+					float d = Vector2.Distance(transform.position, target);
+					ApplyForce(Seek(target, 0.1f, d) * 3f);
+					UpdateMovement();
+				} else
+                {
+					float d = Vector2.Distance(transform.position, caughtingTarget.transform.position);
+					ApplyForce(Seek(caughtingTarget.transform.position, 0.1f, d) * 3f);
+					UpdateMovement();
+				}
+
 				animator.SetFloat("Move X", gain.x);
 				animator.SetFloat("Move Y", gain.y);
-
+				
+				Debug.Log("name " + caughtingTarget.name);
 				return;
 			}
 		}
@@ -68,19 +89,19 @@ public class SecurityController : Character
 		{
 			case State.PATROLLING_GO:
 			{
-				SetNewDestination(patrol_end);
+				SetNewDestinationSecurity(patrol_start);
 				break;
 			}
 
 			case State.PATROLLING_BACK:
 			{
-				SetNewDestination(patrol_start);
+				SetNewDestinationSecurity(patrol_end);
 				break;
 			}
 
 			case State.ESCORTING:
 			{
-				SetNewDestination(new Vector3(8.57f, -6.17f, 0));
+				SetNewDestinationSecurity(new Vector3(7.5f, -5.5f, 0));
 				break;
 			}
 
@@ -164,17 +185,18 @@ public class SecurityController : Character
 		}
 	}
 
-	Follower LookForFollowerWithPaperRoll()
+	GameObject LookForFollowerWithPaperRoll()
 	{
 		List<Transform> context = new List<Transform>();
 		Collider2D[] contextColliders = Physics2D.OverlapCircleAll(transform.position, caughtingRadius);
 		foreach (Collider2D collider in contextColliders)
 		{
-			Follower follower = collider.gameObject.GetComponent<Follower>();
+			//GameObject customer = collider.gameObject.GetComponent<Follower>();
 
-			if (follower != null && follower.HasRoll)
+
+			if (collider.CompareTag("AICustomer") && collider.transform.childCount > 0)
 			{
-				return follower;
+				return collider.gameObject;
 			}
 		}
 		return null;
@@ -182,23 +204,47 @@ public class SecurityController : Character
 
 	void OnCollisionEnter2D(Collision2D other)
 	{
+		/**
 		if (caughtFollower == null)
 		{
-			Follower follower = other.gameObject.GetComponent<Follower>();
+			//Follower follower = other.gameObject.GetComponent<Follower>();
 
-			if (follower != null)
+			if (other.transform.CompareTag("AICustomer"))
 			{
-				follower.transform.parent = transform;
-				follower.transform.position = transform.position;
-				follower.transform.GetComponent<CircleCollider2D>().enabled = false;
-				follower.state = Character.State.CAUGHT;
+				other.transform.parent = transform;
+				other.transform.position = transform.position;
+				other.transform.GetComponent<CircleCollider2D>().enabled = false;
+				other.gameObject.GetComponent<Character>().state = Character.State.CAUGHT;
 
-				caughtFollower = follower;
+				caughtFollower = other.gameObject;
 
 				state = State.ESCORTING;
 				setNewDest = true;
-				SetNewDestination(new Vector3(8.57f, -6.17f, 0));
+				SetNewDestinationSecurity(new Vector3(8.5f, -6f, 0));
+			}
+		}
+		**/
+		if (caughtFollower == null)
+		{
+			if (other.collider.CompareTag("AICustomer") && other.collider.transform.childCount > 0)
+			{
+				/**
+				caughtFollower = other.collider.gameObject;
+				
+				other.transform.parent = transform;
+				other.transform.position = transform.position;
+				other.transform.GetComponent<CircleCollider2D>().enabled = false;
+				other.transform.GetComponent<Character>().enabled = false;
+				state = State.ESCORTING;
+				//setNewDest = true;
+				//SetNewDestinationSecurity(new Vector3(7.5f, -5.5f, 0));
+				//SetNewDestinationSecurity(new Vector3(8.5f, -6f, 0));
+				**/
+				Destroy(other.collider.gameObject);
+				state = State.PATROLLING_GO;
 			}
 		}
 	}
+
+
 }
