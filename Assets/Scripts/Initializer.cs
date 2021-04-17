@@ -13,7 +13,7 @@ public class Initializer : MonoBehaviour
 	{
 		InitializeEmptyShelves();
 		//InitializePaperRolls();
-		//InitializeSecurities();
+		InitializeSecurities();
 	}
 
 	void InitializeEmptyShelves()
@@ -42,8 +42,8 @@ public class Initializer : MonoBehaviour
 	{
 		for (int i = 0; i < 1; i++)
 		{
-			Vector3 start = new Vector3(15.7f, 0f, 0);
-			Vector3 end = new Vector3(15.7f, -7f, 0);
+			Vector3 start = new Vector3(15.5f, 0f, 0);
+			Vector3 end = new Vector3(14.5f, -5f, 0);
 			SecurityController security = Instantiate(securityPrefab, Vector3.zero, Quaternion.Euler(Vector3.zero));
 			security.name = "Security_" + i;
 			security.Initialize(start, end);

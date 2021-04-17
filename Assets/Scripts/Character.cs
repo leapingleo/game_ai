@@ -34,6 +34,7 @@ public class Character : MonoBehaviour
 	public bool HasRoll { get { return hasRoll; } }
 
 	public GameObject wallFollowMarker;
+	public State state;
 
 	public virtual void Start()
 	{
@@ -178,6 +179,23 @@ public class Character : MonoBehaviour
 		//UpdateMovement();
 	}
 
+	protected void SetNewDestinationSecurity(Vector3 dest)
+	{
+		if (setNewDest)
+		{
+			setNewDest = false;
+			path = GetComponent<TestMove>().SetNewPath(dest);
+
+			if (path != null || path.Count > 0)
+			nextTarget = path[path.Count - 1];
+		}
+
+		float d = Vector2.Distance(transform.position, dest);
+		ApplyForce(Seek(nextTarget, slowDownRadius, d));
+		UpdatePath();
+		UpdateMovement();
+	}
+
 	protected void ApplyForce(Vector2 force)
 	{
 		acceleration += force;
@@ -194,7 +212,7 @@ public class Character : MonoBehaviour
 
 		Vector2 arrivingNext = path[0];
 
-		if (Vector2.SqrMagnitude(arrivingNext - (Vector2)transform.position) < 0.05f)
+		if (Vector2.SqrMagnitude(arrivingNext - (Vector2)transform.position) < 0.05f * 0.05f)
 		{
 			path.RemoveAt(0);
 
