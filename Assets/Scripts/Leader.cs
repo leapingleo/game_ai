@@ -19,7 +19,8 @@ public class Leader : Character
     private bool isStealSuccess = false;
     private Transform targetToStealFrom;
     private Vector3 exitLocation;
-
+    private bool securityDetected = false;
+    private Vector3 securityPosition = Vector2.zero;
 
 
     public override void Start()
@@ -82,6 +83,23 @@ public class Leader : Character
             if (Vector2.Distance(transform.position, nextTarget) < 0.02f)
             {
                 nextTarget = storeTarget;
+            }
+        }
+        
+        detectSecurities();
+
+        if (securityDetected)
+        {
+            if (state == State.EXIT || (state == State.FETCH_ROLL && currentRollsOnHand > 0))
+            {
+                state = State.FLEE;
+            }
+        }
+        else
+        {
+            if (state == State.FLEE)
+            {
+                state = State.EXIT;
             }
         }
 
@@ -195,6 +213,10 @@ public class Leader : Character
             if (distToExit < 0.2f)
                 Destroy(gameObject);
         }
+        else if (state == State.FLEE)
+        {
+            flee();
+        }
     }
 
     private void VisitNextShelf()
@@ -302,6 +324,35 @@ public class Leader : Character
     public bool ReachedTarget()
     {
         return Vector2.Distance(transform.position, destination.position) < 0.05f;
+    }
+
+    private void detectSecurities()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 3f, LayerMask.GetMask("Security"));
+        
+        if (hitColliders.Length == 0)
+        {
+            securityDetected = false;
+            return;
+        }
+
+        GameObject gameObj = hitColliders[0].gameObject;
+
+        securityDetected = true;
+        securityPosition = gameObj.transform.position;
+    }
+
+    private void flee()
+    {
+        // Vector3 desireVelocity = (transform.position - securityPosition).normalized * maxSpeed;
+        // Vector2 steer = (Vector2)desireVelocity - velocity;
+        // steer = Vector3.ClampMagnitude(steer, maxForce * 2);
+        // ApplyForce(steer);
+        // UpdateMovement();
+        
+        Vector2 target = (Vector2) (transform.position - securityPosition);
+        float dist = Vector2.Distance(transform.position, target);
+        MoveTowardsTarget(target, dist);
     }
 
 

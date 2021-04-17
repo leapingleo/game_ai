@@ -6,7 +6,7 @@ public class Character : MonoBehaviour
 {
 	protected GroupManager groupManager;
 
-	public enum State { IDLE, FOLLOW, EXIT, TAKE_ROLL, SEARCH_ROLL, FETCH_ROLL, CAUGHT, SEARCH_STEAL_TARGET, STEAL };
+	public enum State { IDLE, FOLLOW, EXIT, TAKE_ROLL, SEARCH_ROLL, FETCH_ROLL, CAUGHT, SEARCH_STEAL_TARGET, STEAL, FLEE };
 	public Collider2D Collider { get { return shopper_collider; } }
 	public float visionDistance;
 	public float maxSpeed;
