@@ -43,12 +43,12 @@ public class JumpPointSearch
                 GameObject gameObject = hitCollider.gameObject;
                 string tag = gameObject.tag;
 
-                if (tag.Equals("Player") || tag.Equals("Bush"))
+                if (!tag.Equals("Player") && !tag.Equals("Security"))
                 {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
     }
 
