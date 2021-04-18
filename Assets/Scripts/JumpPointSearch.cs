@@ -43,7 +43,8 @@ public class JumpPointSearch
                 GameObject gameObject = hitCollider.gameObject;
                 string tag = gameObject.tag;
                 
-                if (!tag.Equals("AICustomer") && !tag.Equals("Security"))
+                
+                if (!tag.Equals("Default") && !tag.Equals("Follower") && !tag.Equals("AICustomer") && !tag.Equals("Security"))
                 {
                     return false;
                 }
@@ -88,7 +89,7 @@ public class JumpPointSearch
                 Vector2 direction = new Vector2(end.x - start.x, end.y - start.y).normalized;
                 float distance = (start - end).magnitude;
 
-                string[] scanLayers = {"Default", "Follower", "Leader"};
+                string[] scanLayers = {"Security", "Default", "Follower", "Leader"};
                 RaycastHit2D hit = Physics2D.Raycast(start, direction, distance, LayerMask.GetMask(scanLayers));
                 if (hit.collider == null)
                 {
@@ -122,7 +123,8 @@ public class JumpPointSearch
 
         path.Add(new Vector2(x, y));
 
-        return SmoothPath(path);
+        //   return SmoothPath(path);
+        return path;
     }
 
     private static string GetListKey(float x, float y)

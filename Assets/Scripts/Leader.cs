@@ -7,7 +7,7 @@ public class Leader : Character
 {
     public bool turned = false;
     public bool followMouse;
-   // public State state;
+    // public State state;
     private Dictionary<Vector3, bool> shelfLocationKey = new Dictionary<Vector3, bool>();
     int searchCounter = 0;
     public GameObject shelfLocationManager;
@@ -48,7 +48,7 @@ public class Leader : Character
     {
         int index = Random.Range(0, shelfLocationManager.transform.childCount);
 
-       // bool isVisited = shelfLocationKey[shelfLocationKey.ElementAt(index).Key];
+        // bool isVisited = shelfLocationKey[shelfLocationKey.ElementAt(index).Key];
 
         while (shelfLocationKey[shelfLocationKey.ElementAt(index).Key])
         {
@@ -81,13 +81,11 @@ public class Leader : Character
                 nextTarget = storeTarget;
             }
         }
-        
         detectSecurities();
 
         if (securityDetected)
         {
-            if (state == State.EXIT || 
-                (state == State.FETCH_ROLL && currentRollsOnHand > 0) ||
+            if (state == State.EXIT ||
                 (state == State.SEARCH_ROLL && currentRollsOnHand > 0))
             {
                 state = State.FLEE;
@@ -98,6 +96,7 @@ public class Leader : Character
             if (state == State.FLEE)
             {
                 state = State.EXIT;
+                SetNewDestination(exitLocation);
             }
         }
 
@@ -107,11 +106,11 @@ public class Leader : Character
                 state = State.SEARCH_ROLL;
         }
 
-        if (state == State.SEARCH_ROLL)
+        else if (state == State.SEARCH_ROLL)
         {
             float distToShelf = Vector2.Distance(transform.position, shelfLocationKey.ElementAt(currentVisitIndex).Key);
             MoveTowardsTarget(nextTarget, distToShelf);
-            
+
             //when arrived at the shelf and not all shelves have been visited
             if (distToShelf <= 0.1f)
             {
@@ -136,10 +135,10 @@ public class Leader : Character
             }
             //back to search state when there are more rolls to get and not all shelves have been checked
             if (currentRollsOnHand < desiredNumberOfRolls && !CheckAllShelvesVisited())
-            { 
+            {
                 state = State.SEARCH_ROLL;
                 VisitNextShelf();
-            } 
+            }
             else //need more rolls and all shelves checked
             {
                 state = State.SEARCH_STEAL_TARGET;
@@ -147,32 +146,35 @@ public class Leader : Character
         }
         else if (state == State.SEARCH_STEAL_TARGET)
         {
-            //should have wander logic here then if a nearby victim is found then steal
-          //  float distToStealTarget = Vector2.Distance(transform.position, new Vector3(-0.5f, -5f, 0)
-            if (StealTargetNearby() != null)
-            {
-                state = State.STEAL;
-                targetToStealFrom = StealTargetNearby();
+            targetToStealFrom = StealTargetNearby();
 
-               // if (targetToStealFrom.gameObject != null)
-              //  {
-                   // nextTarget = targetToStealFrom.position;
-                    storeTarget = targetToStealFrom.position;
-                    SetNewDestination(targetToStealFrom.position);
-              //  }
-            } else
+            //  float distToStealTarget = Vector2.Distance(transform.position, new Vector3(-0.5f, -5f, 0)
+            if (targetToStealFrom == null)
             {
                 state = State.EXIT;
                 SetNewDestination(exitLocation);
+               
+
+
+                // if (targetToStealFrom.gameObject != null)
+                //  {
+                // nextTarget = targetToStealFrom.position;
+               // storeTarget = targetToStealFrom.position;
+                
+                //  }
+            }
+            else
+            {
+                state = State.STEAL;
+                SetNewDestination(storeTarget);
             }
         }
         else if (state == State.STEAL)
         {
-          //  Debug.Log("target to steal " + targetToStealFrom.transform.name + ", " + targetToStealFrom.childCount);
-            //always check if the roll from the victim is taken by another customer
+            //  Debug.Log("target to steal " + targetToStealFrom.transform.name + ", " + targetToStealFrom.childCount);
             if (targetToStealFrom != null && targetToStealFrom.childCount < 1)
                 targetToStealFrom = null;
-            
+
             //if a stealable target is removed by the security or the target no longer has a roll, go back to search state
             if (targetToStealFrom == null || targetToStealFrom.childCount < 1)
             {
@@ -183,8 +185,8 @@ public class Leader : Character
             {
                 float dist = Vector2.Distance(transform.position, targetToStealFrom.position);
                 Debug.Log("Next tar " + nextTarget);
-             //   if (dist > 3f)
-                    MoveTowardsTarget(nextTarget, dist);
+                //   if (dist > 3f)
+                MoveTowardsTarget(nextTarget, dist);
 
                 if (dist < 3f)
                 {
@@ -192,16 +194,21 @@ public class Leader : Character
                 }
                 if (dist < 1f)
                 {
-                    StealTarget();
+                    if (targetToStealFrom == null || targetToStealFrom.childCount < 1)
+                    {
+                        state = State.SEARCH_STEAL_TARGET;
+                    }
+                    else
+                    {
+                        StealTarget();
+                    }
                 }
             }
-
-         
             if (trySteal)
             {
                 state = State.EXIT;
                 SetNewDestination(exitLocation);
-            } 
+            }
         }
         else if (state == State.EXIT)
         {
@@ -224,7 +231,7 @@ public class Leader : Character
         SetNewDestination(shelfLocationKey.ElementAt(currentVisitIndex).Key);
     }
 
-    
+
 
     private int NumberOfStealableNearby()
     {
@@ -242,7 +249,7 @@ public class Leader : Character
     }
 
 
-   
+
 
     private bool CheckAllShelvesVisited()
     {
@@ -257,7 +264,7 @@ public class Leader : Character
     private void detectSecurities()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 3f, LayerMask.GetMask("Security"));
-        
+
         if (hitColliders.Length == 0)
         {
             securityDetected = false;
@@ -277,8 +284,8 @@ public class Leader : Character
         // steer = Vector3.ClampMagnitude(steer, maxForce * 2);
         // ApplyForce(steer);
         // UpdateMovement();
-        
-        Vector2 target = (Vector2) (transform.position - securityPosition);
+
+        Vector2 target = (Vector2)(transform.position - securityPosition);
         float dist = Vector2.Distance(transform.position, target);
         MoveTowardsTarget(target, dist);
     }

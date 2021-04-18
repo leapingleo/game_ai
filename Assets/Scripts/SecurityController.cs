@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEditor;
 
 public class SecurityController : Character
 {
@@ -21,6 +23,8 @@ public class SecurityController : Character
 	private Character caughtFollower;
 	private Character caughtingTarget;
 
+	private Vector3 target;
+
 	// Start is called before the first frame update
 	new void Start()
 	{
@@ -36,6 +40,7 @@ public class SecurityController : Character
 		patrol_end = end;
 	}
 
+	[DrawGizmo(GizmoType.Selected | GizmoType.Active)]
 	void Update()
 	{
 		if (state != State.ESCORTING)
@@ -49,15 +54,20 @@ public class SecurityController : Character
 
 				Vector3 gain = caughtingTarget.transform.position - transform.position;
 
-				if (caughtingTarget.GetComponent<Character>().velocity.magnitude > 0.1f)
+				float time = gain.magnitude;
+
+				Vector3 direction = caughtingTarget.transform.up;
+				direction.Normalize();
+
+				target = caughtingTarget.transform.position + direction * time;
+
+
+				RaycastHit2D raycast = Physics2D.Raycast(transform.position + gain.normalized * 0.6f, target - transform.position, time);
+
+				Debug.DrawRay(transform.position, target - transform.position, Color.red, 1 / 60f);
+
+				if (!raycast || !raycast.transform.CompareTag("Obstacle"))
 				{
-					float time = gain.magnitude;
-
-					Vector3 direction = caughtingTarget.transform.up;
-					direction.Normalize();
-
-					Vector3 target = caughtingTarget.transform.position + direction * time;
-
 					gain = target - transform.position;
 					gain.Normalize();
 					gain *= Time.deltaTime;
@@ -67,20 +77,15 @@ public class SecurityController : Character
 
 					//gain *= (1 - caughtingTarget.HandyRolls * 0.2f);
 
+
 					transform.position += gain;
 
 					gain.Normalize();
 					animator.SetFloat("Move X", gain.x);
 					animator.SetFloat("Move Y", gain.y);
-				}
-				else
-				{
-					float d = Vector2.Distance(transform.position, caughtingTarget.transform.position);
-					ApplyForce(Seek(caughtingTarget.transform.position, 0.1f, d) * 3f);
-					UpdateMovement();
-				}
 
-				return;
+					return;
+				}
 			}
 		}
 
@@ -189,16 +194,31 @@ public class SecurityController : Character
 	{
 		List<Transform> context = new List<Transform>();
 		Collider2D[] contextColliders = Physics2D.OverlapCircleAll(transform.position, caughtingRadius);
+
+		List<Character> customers = new List<Character>();
+
 		foreach (Collider2D collider in contextColliders)
 		{
 			Character follower = collider.gameObject.GetComponent<Character>();
 
 			if (follower != null && follower.transform.childCount > 0)
 			{
-				return follower;
+				//return follower;
+				customers.Add(follower);
 			}
 		}
-		return null;
+
+		customers = customers.OrderByDescending(f => (f.transform.position - transform.position).magnitude).ToList();
+		customers.Reverse();
+
+		if (customers.Count != 0)
+		{
+			return customers[0];
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D other)

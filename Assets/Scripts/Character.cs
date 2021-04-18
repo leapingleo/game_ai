@@ -6,7 +6,7 @@ public class Character : MonoBehaviour
 {
 	protected GroupManager groupManager;
 
-	public enum State { IDLE, FOLLOW, EXIT, TAKE_ROLL, SEARCH_ROLL, FETCH_ROLL, CAUGHT, SEARCH_STEAL_TARGET, STEAL, FLEE };
+	public enum State { IDLE, FOLLOW, EXIT, SEARCH_ROLL, FETCH_ROLL, CAUGHT, SEARCH_STEAL_TARGET, STEAL,FLEE };
 	public Collider2D Collider { get { return shopper_collider; } }
 	public float visionDistance;
 	public float maxSpeed;
@@ -98,7 +98,7 @@ public class Character : MonoBehaviour
 
 	protected Transform StealTargetNearby()
 	{
-		Collider2D[] hitColliders = Physics2D.OverlapCircleAll(nextTarget, 15f);
+		Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 10f);
 		List<Transform> stealableTargets = new List<Transform>();
 
 		foreach (var c in hitColliders)
@@ -106,56 +106,67 @@ public class Character : MonoBehaviour
 			if (c != GetComponent<Collider2D>() && 
 				(c.CompareTag("AICustomer") || c.CompareTag("Follower")) && c.transform.childCount > 0)
 			{
-				Debug.Log("name " + c.name);
 				stealableTargets.Add(c.transform);
+
+				
+				//return c.transform;
 			}
 		}
-		if (stealableTargets.Count > 0)
-			return stealableTargets[Random.Range(0, stealableTargets.Count - 1)];
+		Transform stealTarget = stealableTargets[Random.Range(0, stealableTargets.Count - 1)];
+		if (stealTarget != null && stealableTargets.Count > 0)
+		{
+			storeTarget = stealTarget.transform.position;
+			return stealTarget;
+		}
 
 		return null;
+		/**
+		List<Transform> stealableTargets = new List<Transform>();
+		foreach (var c in GroupManager.Instance.aICustomerTransforms)
+        {
+			if (Vector2.SqrMagnitude(transform.position - c.position) < 100f)
+            {
+				if (c != GetComponent<Collider2D>() &&
+				(c.CompareTag("AICustomer") || c.CompareTag("Follower")) && c.transform.childCount > 0)
+				{
+					stealableTargets.Add(c.transform);
+				}
+			}
+        }
+		if (stealableTargets.Count > 0)
+			return stealableTargets[Random.Range(0, stealableTargets.Count - 1)];
+		
+		return null;
+		**/
 	}
 
 	protected void StealTarget()
 	{
-		if (trySteal)
-			return;
+		Debug.Log("try steal:)" + trySteal);
+		//if (trySteal)
+		//	return;
 
 		Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1.5f);
 		foreach (var c in hitColliders)
 		{
-			if (c.CompareTag("AICustomer") || c.CompareTag("Follower"))
+			if (!trySteal && (c.CompareTag("AICustomer") || c.CompareTag("Follower")))
 			{
-				trySteal = true;
-				if (c.transform.childCount > 0)
+				
+				if (c.transform.childCount > 0 && c.transform.GetChild(0).gameObject != null)
 				{
+					trySteal = true;
 					GameObject roll = c.transform.GetChild(0).gameObject;
+					roll.GetComponent<SpriteRenderer>().color = Color.red;
+					roll.layer = 10;
 					roll.transform.parent = transform;
 					roll.transform.position = transform.position;
+					currentRollsOnHand++;
+
+					c.GetComponent<Character>().currentRollsOnHand--;
 				}
 			}
 		}
 	}
-	/**
-	protected void TakeRollsFromShelf()
-	{
-		availableRolls = new List<GameObject>();
-		Collider2D[] neighboursColliders = Physics2D.OverlapCircleAll(transform.position, 2f);
-
-		foreach (Collider2D c in neighboursColliders)
-		{
-			//only rolls add to list when it's not taken
-			if (c.CompareTag("Roll") && !c.transform.parent.CompareTag("Follower")
-				&& !c.transform.parent.CompareTag("Leader"))
-			{
-				availableRolls.Add(c.transform.gameObject);
-			}
-		}
-
-		if (!HasRoll)
-			TakeRoll();
-	}
-	**/
 
 	protected void Avoidance(List<Transform> nearbyMember, float strength)
 	{
@@ -247,10 +258,11 @@ public class Character : MonoBehaviour
 		//if (setNewDest)
 		//{
 		//	setNewDest = false;
-			path = GetComponent<TestMove>().SetNewPath(dest);
+		path = GetComponent<TestMove>().SetNewPath(dest);
 
-			if (path != null || path.Count > 0)
-				nextTarget = path[path.Count - 1];
+		if (path != null || path.Count > 0)
+			nextTarget = path[path.Count - 1];
+
 		//}
 
 		//float d = Vector2.Distance(transform.position, dest);

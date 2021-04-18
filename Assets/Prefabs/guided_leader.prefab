@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visionDistance: 0.6
-  maxSpeed: 4
+  maxSpeed: 4.5
   maxForce: 0.08
   visionAngle: 75
   slowDownRadius: 1

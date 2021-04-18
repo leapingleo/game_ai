@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GroupManager : MonoBehaviour
 {
+	public static GroupManager Instance;
 	public Character leaderPrefab;
 	public Character followerPrefab;
 
@@ -16,9 +17,42 @@ public class GroupManager : MonoBehaviour
 
 	protected Character _leader;
 	public Character Leader { get { return _leader; } }
+	public int groupTotalRolls;
+	public float gameDuration;
+	public float timer;
+	public GameObject gameEnvironmentInitializer;
+	public GameObject HUD;
+	public GameObject screenTitle;
+	public GameObject AISpawner;
+	public List<Transform> aICustomerTransforms;
 
-	void Start()
+	void Awake()
+    {
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(gameObject);
+	}
+
+	public void StartGame()
+    {
+		screenTitle.SetActive(false);
+		HUD.SetActive(true);
+		gameEnvironmentInitializer.SetActive(true);
+		//AISpawner.SetActive(true);
+		SetupGroup();
+	}
+
+
+
+    void Start()
 	{
+		timer = gameDuration;
+		StartGame();
+	}
+
+	void SetupGroup()
+    {
 		_members = new List<Character>();
 
 		_leader = Instantiate(leaderPrefab, transform.position, Quaternion.Euler(Vector3.zero));
@@ -39,10 +73,26 @@ public class GroupManager : MonoBehaviour
 
 	void Update()
     {
+		if (timer > 0)
+			timer -= Time.deltaTime; 
+
+
+		int rollCount = 0;
         foreach (var member in _members)
         {
 			member.SetState(_leader.state);
+			rollCount += member.transform.childCount;
         }
+		groupTotalRolls = rollCount;
+
+
+		List<Transform> allAICustomer = new List<Transform>();
+
+		for (int i = 0; i < AISpawner.transform.childCount; i++)
+        {
+			allAICustomer.Add(AISpawner.transform.GetChild(i).transform);
+		}
+		aICustomerTransforms = allAICustomer;
     }
 
 	public List<Transform> GetGroupMembers()

@@ -50,6 +50,8 @@ public class Follower : Character
 
         if (state == State.FOLLOW)
         {
+            trySteal = false;
+            canFetchOneRollFromShelf = true;
             FollowLeader(distToLeader, target);
         }
 
@@ -69,37 +71,27 @@ public class Follower : Character
                 state = State.STEAL;
                 targetToStealFrom = StealTargetNearby();
 
-                storeTarget = targetToStealFrom.position;
                 SetNewDestination(targetToStealFrom.position);
             }
         }
         if (state == State.STEAL)
         {
-            if (targetToStealFrom != null && targetToStealFrom.childCount < 1)
-                targetToStealFrom = null;
+            targetToStealFrom = StealTargetNearby();
+            Debug.Log("tar " + targetToStealFrom.name);
+            
 
-            //if a stealable target is removed by the security or the target no longer has a roll, go back to search state
-            if (targetToStealFrom == null || targetToStealFrom.childCount < 1)
-            {
-                state = State.SEARCH_STEAL_TARGET;
-                return;
-            }
-            else
-            {
-                float dist = Vector2.Distance(transform.position, targetToStealFrom.position);
-                Debug.Log("Next tar " + nextTarget);
-                //   if (dist > 3f)
-                MoveTowardsTarget(nextTarget, dist);
+            float dist = Vector2.Distance(transform.position, targetToStealFrom.position);
+            MoveTowardsTarget(targetToStealFrom.position, dist);
 
-                if (dist < 3f)
-                {
-                    MoveTowardsTarget(storeTarget, dist);
-                }
-                if (dist < 1f)
-                {
-                    StealTarget();
-                }
+            if (dist < 3f)
+            {
+                MoveTowardsTarget(targetToStealFrom.position, dist);
             }
+            if (dist < 1f)
+            {
+                StealTarget();
+            }
+            
         }
     }
 

@@ -83,7 +83,7 @@ public class PlayerCustomer : Character
 		Debug.DrawLine(detectVisionStartAt, endVisionAt, Color.green);
 
 		float dist = Vector2.Distance(transform.position, storeTarget);
-		
+
 
 		//wall following by single front vision
 		if (frontVision.collider != null && frontVision.collider.tag == "Obstacle")
@@ -93,7 +93,7 @@ public class PlayerCustomer : Character
 			GameObject wallFollow = Instantiate(wallFollowMarker, targetTurningPoint, Quaternion.identity);
 			Destroy(wallFollow, 1f);
 			//nextWallFollow.transform.position = targetTurningPoint;
-			
+
 			target = targetTurningPoint;
 		}
 		else
@@ -101,7 +101,7 @@ public class PlayerCustomer : Character
 			if (Vector2.Distance(transform.position, target) < 0.02f)
 			{
 				target = storeTarget;
-				
+
 			}
 		}
 
@@ -110,13 +110,13 @@ public class PlayerCustomer : Character
 		UpdateMovement();
 
 		if (Input.GetKeyDown(KeyCode.A))
-        {
+		{
 			state = State.FETCH_ROLL;
-        }
+		}
 		if (Input.GetKeyDown(KeyCode.S))
-        {
-			state = State.SEARCH_STEAL_TARGET;
-        }
+		{
+			state = State.STEAL;
+		}
 		if (Input.GetKeyDown(KeyCode.F))
         {
 			state = State.FOLLOW;

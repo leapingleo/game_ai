@@ -7,7 +7,6 @@ public class UI : MonoBehaviour
 {
     public Text rollOnHandText;
     public Text timerText;
-    public float timer;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +17,7 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
-        timerText.text = "" + (int)timer;
+        timerText.text = "" + (int)GroupManager.Instance.timer;
+        rollOnHandText.text = "" + GroupManager.Instance.groupTotalRolls;
     }
 }

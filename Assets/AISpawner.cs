@@ -22,7 +22,8 @@ public class AISpawner : MonoBehaviour
         {
             nextSpawnTimer += spawnRate;
             Vector3 spawnLocation = entranceManager.transform.GetChild(Random.Range(0, entranceManager.transform.childCount)).position;
-            Instantiate(aICustomerPrefab, spawnLocation, Quaternion.identity);
+            GameObject aICustomer = Instantiate(aICustomerPrefab, spawnLocation, Quaternion.identity);
+            aICustomer.transform.parent = transform;
         }
     }
 }
