@@ -23,10 +23,20 @@ public class RollInitializer : MonoBehaviour
 
         for (int i = 0; i < rolls_per_layer; i++)
         {
-            GameObject roll1 = Instantiate(paperRollPrefab, new Vector3(transform.position.x - 0.85f + i * x_offset, transform.position.y + 0.25f, 0), Quaternion.Euler(Vector3.zero));
-            GameObject roll2 = Instantiate(paperRollPrefab, new Vector3(transform.position.x - 0.85f + i * x_offset, transform.position.y + -0.5f, 0), Quaternion.Euler(Vector3.zero));
-            roll1.transform.parent = transform;
-            roll2.transform.parent = transform;
+            int n1 = Random.Range(0, 100);
+            int n2 = Random.Range(0, 100);
+
+            if (n1 > 30)
+            {
+                GameObject roll1 = Instantiate(paperRollPrefab, new Vector3(transform.position.x - 0.85f + i * x_offset, transform.position.y + 0.25f, 0), Quaternion.Euler(Vector3.zero));
+                roll1.transform.parent = transform;
+            }
+
+            if (n2 > 30)
+            {
+                GameObject roll2 = Instantiate(paperRollPrefab, new Vector3(transform.position.x - 0.85f + i * x_offset, transform.position.y + -0.5f, 0), Quaternion.Euler(Vector3.zero));
+                roll2.transform.parent = transform;
+            }
         }
     }
 }

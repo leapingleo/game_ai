@@ -8,13 +8,21 @@ public class Initializer : MonoBehaviour
 	public GameObject paperRollPrefab;
 	public SecurityController securityPrefab;
 	public GameObject shelfLocationManager;
+	public GameObject wanderingKids;
+	public GameObject actualGameSetting;
+	public GameObject gameTitleBackground;
 
 	void Start()
 	{
 		InitializeEmptyShelves();
 		//InitializePaperRolls();
 		InitializeSecurities();
+		//InitializeWanderingKids();
+		actualGameSetting.SetActive(true);
+		wanderingKids.SetActive(true);
+		Destroy(gameTitleBackground);
 	}
+
 
 	void InitializeEmptyShelves()
 	{
@@ -25,6 +33,16 @@ public class Initializer : MonoBehaviour
 		}
 		
 	}
+
+	/**
+	void InitializeWanderingKids()
+	{
+		for (int i = 0; i < wanderingKids.Length; i++)
+		{
+			wanderingKids[i].SetActive(true);
+		}
+	}
+	**/
 
 	void InitializePaperRolls()
 	{

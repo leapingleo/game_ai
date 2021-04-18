@@ -13,6 +13,9 @@ public class PlayerCustomer : Character
 
 	private void Update()
 	{
+		if (GroupManager.Instance.gameOver)
+			return; 
+
 		visionDistance = 0.6f;
 		/**
 		//	视觉起点定义为角色当前位置朝向旋转方向向前0.41f为起点
@@ -86,12 +89,15 @@ public class PlayerCustomer : Character
 
 
 		//wall following by single front vision
-		if (frontVision.collider != null && frontVision.collider.tag == "Obstacle")
+		if (frontVision.collider != null && (frontVision.collider.CompareTag("Obstacle") || frontVision.collider.CompareTag("Shelf")))
 		{
 			//Debug.Log(frontVision.collider.name);
 			Vector2 targetTurningPoint = frontVision.point + frontVision.normal * 0.6f;
-			GameObject wallFollow = Instantiate(wallFollowMarker, targetTurningPoint, Quaternion.identity);
-			Destroy(wallFollow, 1f);
+			if (GroupManager.Instance.debugMode)
+			{
+				GameObject wallFollow = Instantiate(wallFollowMarker, targetTurningPoint, Quaternion.identity);
+				Destroy(wallFollow, 1f);
+			}
 			//nextWallFollow.transform.position = targetTurningPoint;
 
 			target = targetTurningPoint;

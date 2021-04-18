@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5354459035907298816}
   m_Layer: 0
   m_Name: fridge
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 3910072891045549491, guid: 380c134aeb58043738eff8cbf0c9e223, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -107,5 +107,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.63, y: 0.6}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.96, y: 1.05}
+  m_EdgeRadius: 0.43

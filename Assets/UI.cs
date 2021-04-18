@@ -7,6 +7,8 @@ public class UI : MonoBehaviour
 {
     public Text rollOnHandText;
     public Text timerText;
+    public Text agentNumberText;
+    public Text desiredText;
 
     // Start is called before the first frame update
     void Start()
@@ -19,5 +21,7 @@ public class UI : MonoBehaviour
     {
         timerText.text = "" + (int)GroupManager.Instance.timer;
         rollOnHandText.text = "" + GroupManager.Instance.groupTotalRolls;
+        agentNumberText.text = "" + GroupManager.Instance.GroupSize;
+        desiredText.text = "" + GroupManager.Instance.targetNumberOfRolls;
     }
 }

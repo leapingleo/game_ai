@@ -27,14 +27,18 @@ public class Follower : Character
         float distToLeader = Vector2.Distance(transform.position, targetInRadius);
 
         //wall following by single front vision
-        if (frontVision.collider != null && frontVision.collider.tag == "Obstacle")
+        if (frontVision.collider != null && (frontVision.collider.CompareTag("Obstacle") || frontVision.collider.CompareTag("Shelf")))
         {
             maxSpeed = 0.5f;
             touchingWall = true;
             Vector2 targetTurningPoint = frontVision.point + frontVision.normal * 0.6f;
             //nextWallFollow.transform.position = targetTurningPoint;
-            GameObject marker = Instantiate(wallFollowMarker, targetTurningPoint, Quaternion.identity);
-            Destroy(marker, 0.5f);
+
+            if (GroupManager.Instance.debugMode)
+            {
+                GameObject marker = Instantiate(wallFollowMarker, targetTurningPoint, Quaternion.identity);
+                Destroy(marker, 0.5f);
+            }
 
             wallFollow = targetTurningPoint;
             target = targetTurningPoint;

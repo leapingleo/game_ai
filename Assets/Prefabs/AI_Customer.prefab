@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visionDistance: 0.6
-  maxSpeed: 3
+  maxSpeed: 2.6
   maxForce: 0.08
   visionAngle: 10
   slowDownRadius: 1
@@ -125,6 +125,9 @@ MonoBehaviour:
   followMouse: 0
   shelfLocationManager: {fileID: 5094441268756707238, guid: c89b251787cc85a42b6fb05aec446e2a, type: 3}
   exitManager: {fileID: 7655202889167643961, guid: b169f42fb39d99b4eb5762f426908f40, type: 3}
+  characterSprites:
+  - {fileID: -4318440667205020683, guid: fca103ed2f6e7ba40a7dadeeb336c65a, type: 3}
+  - {fileID: -7963385661611294069, guid: fca103ed2f6e7ba40a7dadeeb336c65a, type: 3}
 --- !u!114 &161936975757495849
 MonoBehaviour:
   m_ObjectHideFlags: 0

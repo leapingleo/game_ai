@@ -8,22 +8,19 @@ public class AISpawner : MonoBehaviour
     public GameObject aICustomerPrefab;
     public GameObject entranceManager;
     private float nextSpawnTimer;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    private float timer;
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > nextSpawnTimer)
+        timer += Time.deltaTime;
+
+        if (timer > nextSpawnTimer)
         {
-            nextSpawnTimer += spawnRate;
+            nextSpawnTimer = timer + spawnRate;
             Vector3 spawnLocation = entranceManager.transform.GetChild(Random.Range(0, entranceManager.transform.childCount)).position;
             GameObject aICustomer = Instantiate(aICustomerPrefab, spawnLocation, Quaternion.identity);
             aICustomer.transform.parent = transform;
+            spawnRate = Random.Range(3f, 10f);
         }
     }
 }

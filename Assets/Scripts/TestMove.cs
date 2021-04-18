@@ -33,7 +33,9 @@ public class TestMove : MonoBehaviour
 		if (path == null || path.Count == 0)
 		{
 			path = JumpPointSearch.SearchPath(sourceCenterPosition, currDestCenterPosition);
+			
 			DrawPath(path);
+			
 		}
 
 		lastDestCenterPosition = currDestCenterPosition;
@@ -49,6 +51,10 @@ public class TestMove : MonoBehaviour
 
 	void DrawPath(List<Vector2> paths)
 	{
+		if (!GroupManager.Instance.debugMode)
+			return;
+
+		
 		if (paths == null || paths.Count == 0)
 			return;
 

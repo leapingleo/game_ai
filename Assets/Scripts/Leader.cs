@@ -17,10 +17,12 @@ public class Leader : Character
     private Vector3 exitLocation;
     private bool securityDetected = false;
     private Vector3 securityPosition = Vector2.zero;
+    public Sprite[] characterSprites;
 
 
     public override void Start()
     {
+        GetComponent<SpriteRenderer>().sprite = characterSprites[Random.Range(0, characterSprites.Length)];
         //storeTarget = destination.position;
         base.Start();
         SetupShelfLocations();
@@ -30,6 +32,8 @@ public class Leader : Character
         currentVisitIndex = RandomShelfIndex();
         SetNewDestination(shelfLocationKey.ElementAt(currentVisitIndex).Key);
         exitLocation = exitManager.transform.GetChild(Random.Range(0, exitManager.transform.childCount)).transform.position;
+        maxSpeed = Random.Range(1f, 4f);
+        maxForce = Random.Range(0.06f, 0.2f);
     }
 
     private void SetupShelfLocations()
@@ -68,7 +72,7 @@ public class Leader : Character
         float d = Vector2.Distance(transform.position, storeTarget);
 
         //wall following when not close to the final target
-        if (frontVision && (frontVision.collider.CompareTag("Obstacle")) && d > 0.5f)
+        if (frontVision && (frontVision.collider.CompareTag("Obstacle") || frontVision.collider.CompareTag("Shelf")) && d > 0.5f)
         {
             Vector2 targetTurningPoint = frontVision.point + frontVision.normal * 0.6f;
             //nextWallFollow.transform.position = targetTurningPoint;
@@ -81,24 +85,8 @@ public class Leader : Character
                 nextTarget = storeTarget;
             }
         }
-        detectSecurities();
 
-        if (securityDetected)
-        {
-            if (state == State.EXIT ||
-                (state == State.SEARCH_ROLL && currentRollsOnHand > 0))
-            {
-                state = State.FLEE;
-            }
-        }
-        else
-        {
-            if (state == State.FLEE)
-            {
-                state = State.EXIT;
-                SetNewDestination(exitLocation);
-            }
-        }
+        detectSecurities();
 
         if (state == State.IDLE)
         {
@@ -108,10 +96,17 @@ public class Leader : Character
 
         else if (state == State.SEARCH_ROLL)
         {
+            //when there are more than one rolls on hand, and security detected
+            if (securityDetected && currentRollsOnHand > 0)
+            {
+                state = State.FLEE;
+                return;
+            }
+            //move to next shelf
             float distToShelf = Vector2.Distance(transform.position, shelfLocationKey.ElementAt(currentVisitIndex).Key);
             MoveTowardsTarget(nextTarget, distToShelf);
 
-            //when arrived at the shelf and not all shelves have been visited
+            //when arrived at the shelf
             if (distToShelf <= 0.1f)
             {
                 //mark current shelf as visited when arrived at the current shelf
@@ -139,7 +134,7 @@ public class Leader : Character
                 state = State.SEARCH_ROLL;
                 VisitNextShelf();
             }
-            else //need more rolls and all shelves checked
+            else //else need more rolls and all shelves checked, so search for a stealing target
             {
                 state = State.SEARCH_STEAL_TARGET;
             }
@@ -149,18 +144,16 @@ public class Leader : Character
             targetToStealFrom = StealTargetNearby();
 
             //  float distToStealTarget = Vector2.Distance(transform.position, new Vector3(-0.5f, -5f, 0)
+            //if the target is lost either taken by the security or left the store, then just leave the store
             if (targetToStealFrom == null)
             {
                 state = State.EXIT;
                 SetNewDestination(exitLocation);
                
-
-
                 // if (targetToStealFrom.gameObject != null)
                 //  {
                 // nextTarget = targetToStealFrom.position;
                // storeTarget = targetToStealFrom.position;
-                
                 //  }
             }
             else
@@ -172,6 +165,7 @@ public class Leader : Character
         else if (state == State.STEAL)
         {
             //  Debug.Log("target to steal " + targetToStealFrom.transform.name + ", " + targetToStealFrom.childCount);
+            // when the aiming target's roll is stolen by another customer
             if (targetToStealFrom != null && targetToStealFrom.childCount < 1)
                 targetToStealFrom = null;
 
@@ -184,16 +178,16 @@ public class Leader : Character
             else
             {
                 float dist = Vector2.Distance(transform.position, targetToStealFrom.position);
-                Debug.Log("Next tar " + nextTarget);
-                //   if (dist > 3f)
                 MoveTowardsTarget(nextTarget, dist);
 
+                //this creats a dash effect within 3 unit of radius
                 if (dist < 3f)
                 {
                     MoveTowardsTarget(storeTarget, dist);
                 }
                 if (dist < 1f)
                 {
+                    //at this point still check whether "targetToStealFrom" has left the store or "deleted" by the securities
                     if (targetToStealFrom == null || targetToStealFrom.childCount < 1)
                     {
                         state = State.SEARCH_STEAL_TARGET;
@@ -204,6 +198,7 @@ public class Leader : Character
                     }
                 }
             }
+            //whether a steal is successful or not just leave the store
             if (trySteal)
             {
                 state = State.EXIT;
@@ -212,15 +207,29 @@ public class Leader : Character
         }
         else if (state == State.EXIT)
         {
+            //still check for security on the way out
+            if (securityDetected)
+            {
+                state = State.FLEE;
+                return;
+            }
+
             float distToExit = Vector2.Distance(transform.position, exitLocation);
             MoveTowardsTarget(nextTarget, distToExit);
 
+            //remove once reached the exit
             if (distToExit < 0.2f)
                 Destroy(gameObject);
         }
         else if (state == State.FLEE)
         {
-            flee();
+            if (securityDetected)
+                flee();
+            else
+            {
+                state = State.EXIT;
+                SetNewDestination(exitLocation);
+            }
         }
     }
 
@@ -230,26 +239,6 @@ public class Leader : Character
         currentVisitIndex = RandomShelfIndex();
         SetNewDestination(shelfLocationKey.ElementAt(currentVisitIndex).Key);
     }
-
-
-
-    private int NumberOfStealableNearby()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(nextTarget, 5f);
-        int stealableTargets = 0;
-
-        foreach (var c in hitColliders)
-        {
-            if (c != GetComponent<Collider2D>() && c.CompareTag("AICustomer") && c.transform.childCount > 0)
-            {
-                stealableTargets++;
-            }
-        }
-        return stealableTargets;
-    }
-
-
-
 
     private bool CheckAllShelvesVisited()
     {
@@ -289,59 +278,4 @@ public class Leader : Character
         float dist = Vector2.Distance(transform.position, target);
         MoveTowardsTarget(target, dist);
     }
-
-
-    /**
-        if (state == State.TAKE_ROLL)
-        {
-            TakeRoll();
-            setNewDest = true;
-            state = State.EXIT;
-        }
-
-        if (state == State.SEARCH_ROLL)
-        {
-            path = GetComponent<TestMove>().GetPath();
-            float dist = Vector2.Distance(transform.position, GetComponent<TestMove>().FinalTarget());
-
-            ApplyForce(Seek(nextTarget, slowDownRadius, dist));
-            UpdatePath();
-            UpdateMovement();
-
-            if (dist <= 0.1f)
-                state = State.FETCH_ROLL;
-
-
-
-           // LookingForRolls();
-           // if (availableRolls.Count > 0 && availableRolls[0] != null)
-            //    state = State.TAKE_ROLL;
-        }
-
-        if (state == State.FETCH_ROLL)
-        {
-            //LookingForRolls();
-           // TakeRoll();
-
-           // if (availableRolls[0] != null)
-           // {
-           //     setNewDest = true;
-           //     state = State.EXIT;
-           // }else
-           // {
-
-           // }
-        }
-
-        if (state == State.EXIT)
-        {
-            SetNewDestination(new Vector3(17.5f, -5.5f, 0));
-        }
-
-        //reroute when something is blocked at next target pos and when not reached at the target pos yet
-       // Collider2D[] hitColliders = Physics2D.OverlapCircleAll(nextTarget, 0.5f);
-      // if (hitColliders.Length > 0 && Vector2.Distance(transform.position, nextTarget) > 0.03f)
-       //     SetNewDestination(destination.position);
-        **/
-
 }

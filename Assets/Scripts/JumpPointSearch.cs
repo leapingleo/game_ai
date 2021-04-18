@@ -127,8 +127,8 @@ public class JumpPointSearch
 
         path.Add(new Vector2(x, y));
 
-        return SmoothPath(path);
-        // return path;
+           return SmoothPath(path);
+       // return path;
     }
 
     private static string GetListKey(float x, float y)
