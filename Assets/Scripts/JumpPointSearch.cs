@@ -83,14 +83,13 @@ public class JumpPointSearch
             int startIndex = j;
             Vector2 start = path[startIndex];
 
-            for (int i = 0; i < path.Count - 2; i++)
+            for (int i = 0; i < j - 1; i++)
             {
                 Vector2 end = path[i];
                 Vector2 direction = new Vector2(end.x - start.x, end.y - start.y).normalized;
                 float distance = (start - end).magnitude;
-
-                string[] scanLayers = {"Security", "Default", "Follower", "Leader"};
-                RaycastHit2D hit = Physics2D.Raycast(start, direction, distance, LayerMask.GetMask(scanLayers));
+                
+                RaycastHit2D hit = Physics2D.Raycast(start + direction * GRID_SIZE, direction, distance);
                 if (hit.collider == null)
                 {
                     int removeCount = startIndex - i - 1;
@@ -98,6 +97,11 @@ public class JumpPointSearch
                     j = j - removeCount;
                     break;
                 }
+            }
+
+            if (path.Count < 3 || j < 2)
+            {
+                break;
             }
         }
 
@@ -123,8 +127,8 @@ public class JumpPointSearch
 
         path.Add(new Vector2(x, y));
 
-        //   return SmoothPath(path);
-        return path;
+        return SmoothPath(path);
+        // return path;
     }
 
     private static string GetListKey(float x, float y)
