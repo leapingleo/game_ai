@@ -9,7 +9,7 @@ public class GroupManager : MonoBehaviour
 	public Character leaderPrefab;
 	public Character followerPrefab;
 
-	[Range(2, 8)]
+	[Range(0, 8)]
 	public int GroupSize = 1;
 	public float GroupDensity = 0.1f;
 
@@ -45,13 +45,13 @@ public class GroupManager : MonoBehaviour
 
 	public void StartGame()
     {
-		Instantiate(aISpawner, Vector3.zero, Quaternion.identity);
+		// Instantiate(aISpawner, Vector3.zero, Quaternion.identity);
 		gameStarted = true;
 		screenTitle.SetActive(false);
 		HUD.SetActive(true);
 		gameEnvironmentInitializer.SetActive(true);
 		
-		SetupGroup();
+		// SetupGroup();
 
 		targetNumberOfRolls = GroupSize * 2;
 	}
@@ -65,7 +65,7 @@ public class GroupManager : MonoBehaviour
     void Start()
 	{
 		timer = gameDuration;
-		//StartGame();
+		StartGame();
 	}
 
 	public void RestartGame()
@@ -109,6 +109,9 @@ public class GroupManager : MonoBehaviour
 		if (timer > 0 && gameStarted && !gameOver)
 			timer -= Time.deltaTime;
 
+		if (_members == null)
+			return;
+		
 		//check number of rolls the group collected
 		int rollCount = 0;
 		foreach (var member in _members)
@@ -121,7 +124,7 @@ public class GroupManager : MonoBehaviour
 		//game over when no more group members, or times up and target number not reached
 		if (transform.childCount < 1 || (timer <= 1f && groupTotalRolls < targetNumberOfRolls))
         {
-			gameOver = true;
+			// gameOver = true;
         }
 		if (timer <= 1f && groupTotalRolls >= targetNumberOfRolls)
 		{
@@ -152,7 +155,7 @@ public class GroupManager : MonoBehaviour
         {
 			allAICustomer.Add(AISpawner.transform.GetChild(i).transform);
 		}
-		aICustomerTransforms = allAICustomer;
+		aICustomerTransform		s = allAICustomer;
 		**/
     }
 

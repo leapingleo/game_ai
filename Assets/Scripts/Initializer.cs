@@ -16,10 +16,10 @@ public class Initializer : MonoBehaviour
 	{
 		InitializeEmptyShelves();
 		//InitializePaperRolls();
-		InitializeSecurities();
+		// InitializeSecurities();
 		//InitializeWanderingKids();
 		actualGameSetting.SetActive(true);
-		wanderingKids.SetActive(true);
+		//wanderingKids.SetActive(true);
 		Destroy(gameTitleBackground);
 	}
 

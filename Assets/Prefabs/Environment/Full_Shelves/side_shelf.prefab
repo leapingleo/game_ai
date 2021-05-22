@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1627576721143708289}
   - component: {fileID: 1160712277556697619}
   - component: {fileID: 757434706123579961}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: side_shelf
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

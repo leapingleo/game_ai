@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2073018332822977036}
   - component: {fileID: 2704959839280953465}
   - component: {fileID: 5354459035907298816}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: fridge
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

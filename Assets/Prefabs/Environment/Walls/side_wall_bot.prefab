@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4092230836789344402}
   - component: {fileID: 6264973891836708901}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: side_wall_bot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

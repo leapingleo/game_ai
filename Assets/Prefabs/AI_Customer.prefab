@@ -11,8 +11,11 @@ GameObject:
   - component: {fileID: 1204657107878755831}
   - component: {fileID: 1204657107878755828}
   - component: {fileID: 1204657107878755829}
-  - component: {fileID: 545021283400399045}
-  - component: {fileID: 161936975757495849}
+  - component: {fileID: 3053890367278830957}
+  - component: {fileID: 3968132127315622468}
+  - component: {fileID: 1916514902559127965}
+  - component: {fileID: 91470370299702553}
+  - component: {fileID: -8887845001369850678}
   m_Layer: 7
   m_Name: AI_Customer
   m_TagString: AICustomer
@@ -101,7 +104,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.2}
   serializedVersion: 2
   m_Radius: 0.95
---- !u!114 &545021283400399045
+--- !u!114 &3053890367278830957
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,25 +113,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1204657107878755723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058c624c9c2d0c543ba449d5ffe879b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 19ee541f7011403ba6625e494e90004c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionDistance: 0.6
-  maxSpeed: 2.6
-  maxForce: 0.08
-  visionAngle: 10
-  slowDownRadius: 1
-  velocity: {x: 0, y: 0}
-  wallFollowMarker: {fileID: 345692546726818609, guid: 3fe2a3955773b2e478c1f8e3409b0619, type: 3}
-  state: 0
-  turned: 0
-  followMouse: 0
-  shelfLocationManager: {fileID: 5094441268756707238, guid: c89b251787cc85a42b6fb05aec446e2a, type: 3}
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  entranceManager: {fileID: 2268626985112794616, guid: 10d9a3d751f412747b083fb0a2ae2482, type: 3}
   exitManager: {fileID: 7655202889167643961, guid: b169f42fb39d99b4eb5762f426908f40, type: 3}
-  characterSprites:
-  - {fileID: -4318440667205020683, guid: fca103ed2f6e7ba40a7dadeeb336c65a, type: 3}
-  - {fileID: -7963385661611294069, guid: fca103ed2f6e7ba40a7dadeeb336c65a, type: 3}
---- !u!114 &161936975757495849
+  shelfLocationManager: {fileID: 5094441268756707238, guid: c89b251787cc85a42b6fb05aec446e2a, type: 3}
+  paperRollPrefab: {fileID: 7174497410430265947, guid: 16ad9f82120f47c46bb6d8fa496ba3b5, type: 3}
+  maxSpeed: 2.6
+  stealRange: 1.5
+  fetchRange: 1
+  exitRange: 0.2
+  caughtRange: 0.2
+  rollReward: 0.5
+  reachShelfReward: 0.5
+  exitReward: 1
+  caughtPenalty: -1
+  outSideWithoutRollPenalty: -0.1
+  collisionPenalty: -0.1
+  approachExitReward: 0.01
+  awayFromExitPenalty: -0.01
+  gameDuration: 60
+--- !u!114 &3968132127315622468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,11 +147,87 @@ MonoBehaviour:
   m_GameObject: {fileID: 1204657107878755723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b356b2b5aa61584194e9d7aadcc4860, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  markerPrefab: {fileID: 345692546726818609, guid: 3fe2a3955773b2e478c1f8e3409b0619, type: 3}
-  bush: {fileID: 6999786369084404595, guid: 8c691d14150ae724ab3d9cec3340199b, type: 3}
-  grid: {fileID: 5108393059769187510, guid: a51e10c23b539934aa073d74568f574a, type: 3}
-  reroute: 0
-  reset: 0
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
+--- !u!114 &1916514902559127965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204657107878755723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 13
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 2
+      BranchSizes: 
+    VectorActionSize: 02000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 1
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 5022602860645237092, guid: d20a8eee89cc48ce6bf35cb4bcd04baa, type: 3}
+  m_InferenceDevice: 1
+  m_BehaviorType: 0
+  m_BehaviorName: AICustomer
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_ObservableAttributeHandling: 0
+--- !u!50 &91470370299702553
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204657107878755723}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!114 &-8887845001369850678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204657107878755723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
+  - Security
+  - AICustomer
+  - Obstacle
+  - Shelf
+  m_RaysPerDirection: 20
+  m_MaxRayDegrees: 180
+  m_SphereCastRadius: 7.02
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 14592
+  m_ObservationStacks: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 0.07262372, g: 0.111567445, b: 0.9056604, a: 1}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6432630022569343546}
   - component: {fileID: 7984081577421434196}
   - component: {fileID: 1306871862}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: paper_roll_prefab
   m_TagString: Roll
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7174497410430265947}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

@@ -108,7 +108,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35456911487465771}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058c624c9c2d0c543ba449d5ffe879b3, type: 3}
   m_Name: 
@@ -118,14 +118,14 @@ MonoBehaviour:
   maxForce: 0.08
   visionAngle: 10
   slowDownRadius: 1
-  destination: {fileID: 8942581924698675261, guid: 445ce11772cc29847b159ae702d3e90e, type: 3}
   velocity: {x: 0, y: 0}
   wallFollowMarker: {fileID: 345692546726818609, guid: 3fe2a3955773b2e478c1f8e3409b0619, type: 3}
+  state: 3
   turned: 0
   followMouse: 0
-  state: 3
   shelfLocationManager: {fileID: 0}
   exitManager: {fileID: 0}
+  characterSprites: []
 --- !u!114 &1366114936715938441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35456911487465771}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b356b2b5aa61584194e9d7aadcc4860, type: 3}
   m_Name: 

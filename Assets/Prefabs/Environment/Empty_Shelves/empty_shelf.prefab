@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8629864573515720885}
   - component: {fileID: 5109323301864691990}
   - component: {fileID: -7696664110440807207}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: empty_shelf
   m_TagString: Shelf
   m_Icon: {fileID: 0}
@@ -108,8 +108,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3161123, y: 0.87851316}
-  m_EdgeRadius: 0
+  m_Size: {x: 1.22, y: 0.75}
+  m_EdgeRadius: 0.18
 --- !u!114 &-7696664110440807207
 MonoBehaviour:
   m_ObjectHideFlags: 0
