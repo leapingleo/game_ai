@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
@@ -11,6 +12,7 @@ public class RLCustomer : Agent
     public GameObject exitManager;
     public GameObject shelfLocationManager;
     public GameObject paperRollPrefab;
+    public GameObject emptyShelfPrefab_0;
     // public float sight = 3.0f;
     public float maxSpeed = 2.6f;
     public float stealRange = 1.5f;
@@ -25,6 +27,8 @@ public class RLCustomer : Agent
     public float collisionPenalty = -0.1f;
     public float approachExitReward = 0.01f;
     public float awayFromExitPenalty = -0.01f;
+    public float approachShelfReward = 0.01f;
+    public float awayFromShelfPenalty = -0.01f;
     public float gameDuration = 60;
 
     private Vector3 spawnLocation;
@@ -38,6 +42,7 @@ public class RLCustomer : Agent
     private float time;
     private float shortestDistanceToExit;
     private float shortestDistanceToShelf;
+    private List<GameObject> shelves;
 
     public override void Initialize()
     {
@@ -48,6 +53,7 @@ public class RLCustomer : Agent
         shortestDistanceToExit = float.MaxValue;
         shortestDistanceToShelf = float.MaxValue;
         SetResetParameters();
+        InitializeEmptyShelves();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -55,49 +61,16 @@ public class RLCustomer : Agent
         // current position of the AI customer
         sensor.AddObservation(transform.position.x * 0.1f);
         sensor.AddObservation(transform.position.y * 0.1f);
-        // velocity of the AI customer
-        // sensor.AddObservation(velocity);
         // number of rolls
         sensor.AddObservation(currentRollsOnHand);
-        
-        // security encountered
-        // Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, sight, LayerMask.GetMask("Security"));
-        //
-        // if (hitColliders.Length != 0)
-        // {
-        //     GameObject gameObj = hitColliders[0].gameObject;
-        //     securityPosition = gameObj.transform.position;
-        // }
-        // else
-        // {
-        //     securityPosition = Vector3.zero;
-        // }
-        
-        // sensor.AddObservation(securityPosition.x*0.1f);
-        // sensor.AddObservation(securityPosition.y);
-        
-        // other AI customers
-        // Vector3 othersPosition = Vector3.zero;
-        // hitColliders = Physics2D.OverlapCircleAll(transform.position, sight, LayerMask.GetMask("Leader"));
-        //
-        // if (hitColliders.Length != 0)
-        // {
-        //     GameObject gameObj = hitColliders[0].gameObject;
-        //     othersPosition = gameObj.transform.position;
-        // }
-        
-        // sensor.AddObservation(othersPosition.x);
-        // sensor.AddObservation(othersPosition.y);
-        
+
         // 3 shelf positions
         for (int i = 0; i < shelfLocationManager.transform.childCount; i++)
         {
             Vector3 shelfLocation = shelfLocationManager.transform.GetChild(i).transform.position;
             //arrive point should be below the shelf
             Vector3 arriveAtShelfLocation = new Vector3(shelfLocation.x, shelfLocation.y - 1.5f, shelfLocation.z);
-            // sensor.AddObservation(arriveAtShelfLocation.x);
-            // sensor.AddObservation(arriveAtShelfLocation.y);
-            
+
             // present the distance as the reverse of the distance
             Vector3 distanceVector = (arriveAtShelfLocation - transform.position);
             Vector2 presentedPosition = GetPresentedPosition(distanceVector);
@@ -135,9 +108,6 @@ public class RLCustomer : Agent
         // steal
         // Steal();
 
-            // Debug.Log("x: "+ x + ", y: " + y + ", acceleration: " + acceleration + ", fetch: " + fetch + 
-        //           ", steal: " + steal + ", rolls: " + currentRollsOnHand);
-        
         // out side of the shop without roll penalty
         // if (!IsInsideBox(transform.position))
         // {
@@ -163,12 +133,17 @@ public class RLCustomer : Agent
         {
             float shortestDist = float.MaxValue;
             // 3 shelf positions
-            for (int i = 0; i < shelfLocationManager.transform.childCount; i++)
+            for (int i = 0; i < shelves.Count; i++)
             {
-                Vector3 shelfLocation = shelfLocationManager.transform.GetChild(i).transform.position;
+                GameObject shelf = shelves[i];
+                if (shelf.transform.childCount == 0)
+                {
+                    continue;
+                }
+                Vector3 shelfLocation = shelf.transform.position;
                 //arrive point should be below the shelf
                 Vector3 arriveAtShelfLocation = new Vector3(shelfLocation.x, shelfLocation.y - 1.5f, shelfLocation.z);
-
+        
                 // present the distance as the reverse of the distance
                 float distance = (arriveAtShelfLocation - transform.position).magnitude;
                 if (distance < shortestDist)
@@ -176,17 +151,17 @@ public class RLCustomer : Agent
                     shortestDist = distance;
                 }
             }
-
-            // use the same reward of exit location
+            
+                
             if (shortestDist < shortestDistanceToShelf)
             {
-                shortestDistanceToShelf = shortestDist;
-                AddReward(approachExitReward);
+                AddReward(approachShelfReward);
             }
             else
             {
-                AddReward(awayFromExitPenalty);
+                AddReward(awayFromShelfPenalty);
             }
+            shortestDistanceToShelf = shortestDist;
         }
         // succeed
         if (shortestDistance < exitRange && currentRollsOnHand > 0)
@@ -204,8 +179,6 @@ public class RLCustomer : Agent
             SetReward(caughtPenalty);
             EndEpisode();
         }
-        
-        //SetReward(currentRollsOnHand * rollReward);
     }
     
     // private void OnCollisionEnter(Collision collision)
@@ -256,14 +229,14 @@ public class RLCustomer : Agent
                 if (c.transform.childCount > 0)
                 {
                     // don't reduce the amount of rolls otherwise the rolls will be out of stock quickly
-                    GameObject roll = Instantiate(paperRollPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.Euler(Vector3.zero));
-                    roll.transform.parent = transform;
+                    // GameObject roll = Instantiate(paperRollPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.Euler(Vector3.zero));
+                    // roll.transform.parent = transform;
                     
                     currentRollsOnHand++;
                     AddReward(rollReward);
-                    // GameObject roll = c.transform.GetChild(0).gameObject;
-                    // roll.transform.parent = transform;
-                    // roll.transform.position = transform.position;
+                    GameObject roll = c.transform.GetChild(0).gameObject;
+                    roll.transform.parent = transform;
+                    roll.transform.position = transform.position;
                 }
             }
         }
@@ -300,7 +273,7 @@ public class RLCustomer : Agent
     {
         Vector3 normalizedPosition = distance.normalized;
         float d = distance.magnitude;
-        float k = 0.1f;
+        float k = 0.3f;
         double ekd = Math.Pow(Math.E, -k * d);
         float presentedX = (float)ekd * normalizedPosition.x;
         float presentedY = (float)ekd * normalizedPosition.y;
@@ -332,5 +305,47 @@ public class RLCustomer : Agent
             EndEpisode();
             Initialize();
         }
+    }
+    
+    private void InitializeEmptyShelves()
+    {
+        if (shelves != null)
+        {
+            for (int i = 0; i < shelves.Count; i++)
+            {
+                GameObject go = shelves[i];
+                Destroy(go);
+            }
+        }
+        
+        shelves = new List<GameObject>();
+        
+        for (int i = 0; i < shelfLocationManager.transform.childCount; i++)
+        {
+            GameObject go = Instantiate(emptyShelfPrefab_0, shelfLocationManager.transform.GetChild(i).transform.position,
+                Quaternion.Euler(Vector3.zero));
+            go.name = "Empty Shelf " + i;
+            shelves.Add(go);
+        }
+    }
+
+    private bool AllShelvesEmpty()
+    {
+        if (shelves == null)
+        {
+            return true;
+        }
+        
+        for (int i = 0; i < shelves.Count; i++)
+        {
+            GameObject go = shelves[i];
+
+            if (go.transform.childCount > 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

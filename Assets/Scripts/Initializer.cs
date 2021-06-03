@@ -14,7 +14,7 @@ public class Initializer : MonoBehaviour
 
 	void Start()
 	{
-		InitializeEmptyShelves();
+		// InitializeEmptyShelves();
 		//InitializePaperRolls();
 		// InitializeSecurities();
 		//InitializeWanderingKids();
@@ -31,7 +31,6 @@ public class Initializer : MonoBehaviour
 			Instantiate(emptyShelfPrefab_0, shelfLocationManager.transform.GetChild(i).transform.position,
 				Quaternion.Euler(Vector3.zero)).name = "Empty Shelf 0";
 		}
-		
 	}
 
 	/**
