@@ -44,6 +44,8 @@ public class RLCustomer : Agent
     private float shortestDistanceToShelf;
     private List<GameObject> shelves;
 
+    static int total_rolls_fetched = 0;
+
     public override void Initialize()
     {
       //Destroy(gameObject, 30f);
@@ -167,6 +169,8 @@ public class RLCustomer : Agent
         if (shortestDistance < exitRange && currentRollsOnHand > 0)
         {
             // Destroy(gameObject);
+            total_rolls_fetched += 1;
+            print("Total rolls fetched by AI customers: " + total_rolls_fetched);
             AddReward(exitReward);
             EndEpisode();
         }
@@ -309,23 +313,18 @@ public class RLCustomer : Agent
     
     private void InitializeEmptyShelves()
     {
-        if (shelves != null)
-        {
-            for (int i = 0; i < shelves.Count; i++)
-            {
-                GameObject go = shelves[i];
-                Destroy(go);
-            }
-        }
-        
         shelves = new List<GameObject>();
         
         for (int i = 0; i < shelfLocationManager.transform.childCount; i++)
         {
-            GameObject go = Instantiate(emptyShelfPrefab_0, shelfLocationManager.transform.GetChild(i).transform.position,
-                Quaternion.Euler(Vector3.zero));
-            go.name = "Empty Shelf " + i;
-            shelves.Add(go);
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(shelfLocationManager.transform.GetChild(i).transform.position, fetchRange);
+            foreach (var c in hitColliders)
+            {
+                if (c.CompareTag("Shelf"))
+                {
+                    shelves.Add(c.gameObject);
+                }
+            }
         }
     }
 

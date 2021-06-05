@@ -45,7 +45,7 @@ public class GroupManager : MonoBehaviour
 
 	public void StartGame()
     {
-		// Instantiate(aISpawner, Vector3.zero, Quaternion.identity);
+		Instantiate(aISpawner, Vector3.zero, Quaternion.identity);
 		gameStarted = true;
 		screenTitle.SetActive(false);
 		HUD.SetActive(true);
@@ -155,7 +155,7 @@ public class GroupManager : MonoBehaviour
         {
 			allAICustomer.Add(AISpawner.transform.GetChild(i).transform);
 		}
-		aICustomerTransform		s = allAICustomer;
+		aICustomerTransforms = allAICustomer;
 		**/
     }
 

@@ -20,8 +20,8 @@ public class SecurityController : Character
 
 	Animator animator;
 
-	private Character caughtFollower;
-	private Character caughtingTarget;
+	private GameObject caughtFollower;
+	private GameObject caughtingTarget;
 
 	private Vector3 target;
 
@@ -64,7 +64,7 @@ public class SecurityController : Character
 
 				RaycastHit2D raycast = Physics2D.Raycast(transform.position + gain.normalized * 0.6f, target - transform.position, time);
 
-				Debug.DrawRay(transform.position, target - transform.position, Color.red, 1 / 60f);
+				// Debug.DrawRay(transform.position, target - transform.position, Color.red, 1 / 60f);
 
 				if (!raycast || !raycast.transform.CompareTag("Obstacle"))
 				{
@@ -190,21 +190,20 @@ public class SecurityController : Character
 		}
 	}
 
-	Character LookForFollowerWithPaperRoll()
+	GameObject LookForFollowerWithPaperRoll()
 	{
 		List<Transform> context = new List<Transform>();
 		Collider2D[] contextColliders = Physics2D.OverlapCircleAll(transform.position, caughtingRadius);
 
-		List<Character> customers = new List<Character>();
+		List<GameObject> customers = new List<GameObject>();
 
 		foreach (Collider2D collider in contextColliders)
 		{
-			Character follower = collider.gameObject.GetComponent<Character>();
+			GameObject customer = collider.gameObject;
 
-			if (follower != null && follower.transform.childCount > 0)
+			if (customer.CompareTag("AICustomer") || customer.CompareTag("Follower"))
 			{
-				//return follower;
-				customers.Add(follower);
+				customers.Add(customer);
 			}
 		}
 
@@ -230,8 +229,8 @@ public class SecurityController : Character
 			{
 				if (other.transform.childCount > 0)
 				{
-					Character follower = other.transform.GetComponent<Character>();
-					follower.enabled = false;
+					GameObject follower = other.gameObject;
+					follower.SetActive(false);
 					follower.transform.parent = transform;
 					follower.transform.position = transform.position;
 					follower.transform.GetComponent<CircleCollider2D>().enabled = false;

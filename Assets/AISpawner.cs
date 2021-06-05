@@ -12,24 +12,24 @@ public class AISpawner : MonoBehaviour
     private float nextSpawnTimer;
     private float timer;
     // Update is called once per frame
-    // void Update()
-    // {
-    //     timer += Time.deltaTime;
-    //
-    //     if (timer > nextSpawnTimer)
-    //     {
-    //         nextSpawnTimer = timer + spawnRate;
-    //         Vector3 spawnLocation = entranceManager.transform.GetChild(Random.Range(0, entranceManager.transform.childCount)).position;
-    //         GameObject aICustomer = Instantiate(aICustomerPrefab, spawnLocation, Quaternion.identity);
-    //         aICustomer.transform.parent = transform;
-    //         spawnRate = Random.Range(3f, 10f);
-    //     }
-    // }
+    void Update()
+    {
+        timer += Time.deltaTime;
+    
+        if (timer > nextSpawnTimer)
+        {
+            nextSpawnTimer = timer + spawnRate;
+            Vector3 spawnLocation = entranceManager.transform.GetChild(Random.Range(0, entranceManager.transform.childCount)).position;
+            GameObject aICustomer = Instantiate(aICustomerPrefab, spawnLocation, Quaternion.identity);
+            aICustomer.transform.parent = transform;
+            spawnRate = Random.Range(3f, 10f);
+        }
+    }
 
-    // private void Start()
-    // {
-    //     Vector3 spawnLocation = entranceManager.transform.GetChild(Random.Range(0, entranceManager.transform.childCount)).position;
-    //     GameObject aICustomer = Instantiate(aICustomerPrefab, spawnLocation, Quaternion.identity);
-    //     aICustomer.transform.parent = transform;
-    // }
+    private void Start()
+    {
+        Vector3 spawnLocation = entranceManager.transform.GetChild(Random.Range(0, entranceManager.transform.childCount)).position;
+        GameObject aICustomer = Instantiate(aICustomerPrefab, spawnLocation, Quaternion.identity);
+        aICustomer.transform.parent = transform;
+    }
 }

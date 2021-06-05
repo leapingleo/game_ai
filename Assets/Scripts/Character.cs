@@ -260,7 +260,7 @@ public class Character : MonoBehaviour
 		//	setNewDest = false;
 		path = GetComponent<TestMove>().SetNewPath(dest);
 
-		if (path != null || path.Count > 0)
+		if (path != null && path.Count > 0)
 			nextTarget = path[path.Count - 1];
 
 		//}

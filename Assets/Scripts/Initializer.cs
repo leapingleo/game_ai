@@ -14,9 +14,9 @@ public class Initializer : MonoBehaviour
 
 	void Start()
 	{
-		// InitializeEmptyShelves();
+		InitializeEmptyShelves();
 		//InitializePaperRolls();
-		// InitializeSecurities();
+		InitializeSecurities();
 		//InitializeWanderingKids();
 		actualGameSetting.SetActive(true);
 		//wanderingKids.SetActive(true);
