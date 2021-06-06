@@ -121,7 +121,7 @@ public class RLCustomer : Agent
         float shortestDistance = distToExit1 < distToExit2 ? distToExit1 : distToExit2;
         if (currentRollsOnHand > 0)
         {
-            if (shortestDistance < shortestDistanceToExit)
+            if (shortestDistanceToExit - shortestDistance >= fetchRange)
             {
                 shortestDistanceToExit = shortestDistance;
                 AddReward(approachExitReward);
@@ -148,7 +148,7 @@ public class RLCustomer : Agent
         
                 // present the distance as the reverse of the distance
                 float distance = (arriveAtShelfLocation - transform.position).magnitude;
-                if (distance < shortestDist)
+                if (shortestDist - distance >= fetchRange)
                 {
                     shortestDist = distance;
                 }
@@ -233,14 +233,14 @@ public class RLCustomer : Agent
                 if (c.transform.childCount > 0)
                 {
                     // don't reduce the amount of rolls otherwise the rolls will be out of stock quickly
-                    // GameObject roll = Instantiate(paperRollPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.Euler(Vector3.zero));
-                    // roll.transform.parent = transform;
+                    GameObject roll = Instantiate(paperRollPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.Euler(Vector3.zero));
+                    roll.transform.parent = transform;
                     
                     currentRollsOnHand++;
                     AddReward(rollReward);
-                    GameObject roll = c.transform.GetChild(0).gameObject;
-                    roll.transform.parent = transform;
-                    roll.transform.position = transform.position;
+                    // GameObject roll = c.transform.GetChild(0).gameObject;
+                    // roll.transform.parent = transform;
+                    // roll.transform.position = transform.position;
                 }
             }
         }

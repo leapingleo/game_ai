@@ -179,7 +179,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: bc41035aba27fd317bf33b79d36db263, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: e8f45acdaa477b64e87e624b7fd6737e, type: 3}
   m_InferenceDevice: 1
   m_BehaviorType: 0
   m_BehaviorName: AICustomer
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 10496
+    m_Bits: 12544
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 0.07262372, g: 0.111567445, b: 0.9056604, a: 1}
