@@ -1,0 +1,984 @@
+fileFormatVersion: 2
+guid: 380c134aeb58043738eff8cbf0c9e223
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4265965841815279030
+    second: Resource-ExampleEfficientTileset_0
+  - first:
+      213: 3910072891045549491
+    second: Resource-ExampleEfficientTileset_1
+  - first:
+      213: -659487227206670356
+    second: Resource-ExampleEfficientTileset_2
+  - first:
+      213: 24977165861930359
+    second: Resource-ExampleEfficientTileset_3
+  - first:
+      213: 8482602894312967961
+    second: Resource-ExampleEfficientTileset_4
+  - first:
+      213: 8001002113997324555
+    second: Resource-ExampleEfficientTileset_5
+  - first:
+      213: -2751647580095151068
+    second: Resource-ExampleEfficientTileset_6
+  - first:
+      213: -18820146108515968
+    second: Resource-ExampleEfficientTileset_7
+  - first:
+      213: -2570011808998580850
+    second: Resource-ExampleEfficientTileset_8
+  - first:
+      213: -2321443033410577191
+    second: Resource-ExampleEfficientTileset_9
+  - first:
+      213: -9081313927314182351
+    second: Resource-ExampleEfficientTileset_10
+  - first:
+      213: -493223734550356309
+    second: Resource-ExampleEfficientTileset_11
+  - first:
+      213: -4485963146213437309
+    second: Resource-ExampleEfficientTileset_12
+  - first:
+      213: -9103579620815950260
+    second: Resource-ExampleEfficientTileset_13
+  - first:
+      213: 7244748243162830229
+    second: Resource-ExampleEfficientTileset_14
+  - first:
+      213: 8768364148615396518
+    second: Resource-ExampleEfficientTileset_15
+  - first:
+      213: -1746061419610161848
+    second: Resource-ExampleEfficientTileset_16
+  - first:
+      213: -8764211008570299945
+    second: Resource-ExampleEfficientTileset_17
+  - first:
+      213: 1480180908734376832
+    second: Resource-ExampleEfficientTileset_18
+  - first:
+      213: 9119674374082025753
+    second: Resource-ExampleEfficientTileset_19
+  - first:
+      213: -7028961897028146233
+    second: Resource-ExampleEfficientTileset_20
+  - first:
+      213: 3919013315127135685
+    second: Resource-ExampleEfficientTileset_21
+  - first:
+      213: 2207195595329668398
+    second: Resource-ExampleEfficientTileset_22
+  - first:
+      213: 648231710917551124
+    second: Resource-ExampleEfficientTileset_23
+  - first:
+      213: -2483015609392708363
+    second: Resource-ExampleEfficientTileset_24
+  - first:
+      213: 5068455585357240195
+    second: Resource-ExampleEfficientTileset_25
+  - first:
+      213: -6874665912243108475
+    second: Resource-ExampleEfficientTileset_26
+  - first:
+      213: 998789079290646773
+    second: Resource-ExampleEfficientTileset_27
+  - first:
+      213: -8626535505163200220
+    second: Resource-ExampleEfficientTileset_28
+  - first:
+      213: -829510476097505777
+    second: Resource-ExampleEfficientTileset_29
+  - first:
+      213: 2972168957216457763
+    second: Resource-ExampleEfficientTileset_30
+  - first:
+      213: 1594952713904645886
+    second: Resource-ExampleEfficientTileset_31
+  - first:
+      213: -1699493389701284353
+    second: Resource-ExampleEfficientTileset_32
+  - first:
+      213: -6738606525717467549
+    second: Resource-ExampleEfficientTileset_33
+  - first:
+      213: 5056000110990709376
+    second: Resource-ExampleEfficientTileset_34
+  - first:
+      213: -4865328433353714797
+    second: Resource-ExampleEfficientTileset_35
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_0
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 704
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4a66ae3bae3cc4c0800000000000000
+      internalID: -4265965841815279030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 514
+        width: 63
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b597a4f39e534630800000000000000
+      internalID: 3910072891045549491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 704
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce760786cd709d6f0800000000000000
+      internalID: -659487227206670356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_3
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 543
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77542ba999cb85000800000000000000
+      internalID: 24977165861930359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 704
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91f893eb36248b570800000000000000
+      internalID: 8482602894312967961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 704
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b01c5f31805490f60800000000000000
+      internalID: 8001002113997324555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 513
+        width: 31
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4248d51da1f20d9d0800000000000000
+      internalID: -2751647580095151068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 544
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 089b4944d232dbff0800000000000000
+      internalID: -18820146108515968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_8
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 512
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8d941050eb755cd0800000000000000
+      internalID: -2570011808998580850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dcd1435cd398cfd0800000000000000
+      internalID: -2321443033410577191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_10
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 543
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13f61a41911b8f180800000000000000
+      internalID: -9081313927314182351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_11
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 448
+        width: 65
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bae955b60a7b729f0800000000000000
+      internalID: -493223734550356309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_12
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 426
+        width: 58
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38054724948aeb1c0800000000000000
+      internalID: -4485963146213437309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_13
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 433
+        width: 29
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4ea7c4519699a180800000000000000
+      internalID: -9103579620815950260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_14
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 417
+        width: 38
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5951bd094248a8460800000000000000
+      internalID: 7244748243162830229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_15
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 387
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6acbd738cbc7fa970800000000000000
+      internalID: 8768364148615396518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_16
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 452
+        width: 65
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84d3f10d36eb4c7e0800000000000000
+      internalID: -1746061419610161848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_17
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 351
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d96991c5844f5680800000000000000
+      internalID: -8764211008570299945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 161
+        width: 98
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08b6d64b1b8aa8410800000000000000
+      internalID: 1480180908734376832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 919546e66879f8e70800000000000000
+      internalID: 9119674374082025753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_20
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 128
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cba1eb456c147e90800000000000000
+      internalID: -7028961897028146233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_21
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cdcd26a8d1236630800000000000000
+      internalID: 3919013315127135685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_22
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e258e6123b881ae10800000000000000
+      internalID: 2207195595329668398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_23
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 160
+        width: 66
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 414626d7e4bfef800800000000000000
+      internalID: 648231710917551124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f4c566757e8a8dd0800000000000000
+      internalID: -2483015609392708363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_25
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38710154085c65640800000000000000
+      internalID: 5068455585357240195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_26
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 585434fb6c74890a0800000000000000
+      internalID: -6874665912243108475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_27
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f098a430696cdd00800000000000000
+      internalID: 998789079290646773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_28
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 429d374d9a3684880800000000000000
+      internalID: -8626535505163200220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_29
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f063ebeed9cfc74f0800000000000000
+      internalID: -829510476097505777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 324845b5be34f3920800000000000000
+      internalID: 2972168957216457763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_31
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef6e4d9fa09622610800000000000000
+      internalID: 1594952713904645886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_32
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffdfab034cf2a68e0800000000000000
+      internalID: -1699493389701284353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_33
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36e2b794119ab72a0800000000000000
+      internalID: -6738606525717467549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_34
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 3.3333359
+        width: 80
+        height: 122.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 082dfe720558a2640800000000000000
+      internalID: 5056000110990709376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Resource-ExampleEfficientTileset_35
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 3.3333359
+        width: 80
+        height: 122.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39318564191ea7cb0800000000000000
+      internalID: -4865328433353714797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
