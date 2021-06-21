@@ -4,26 +4,25 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Bush
   - Obstacle
+  - AICustomer
   - Leader
-  - Follower
   - Roll
   - Security
+  - Follower
   - Shelf
-  - AICustomer
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - TP
   - Water
   - UI
-  - Follower
-  - Leader
-  - Security
-  - WanderingKid
-  - Spawned
+  - player
+  - object
+  - 
+  - 
+  - 
   - 
   - 
   - 

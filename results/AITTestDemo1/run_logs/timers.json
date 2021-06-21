@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1623900064",
+        "python_version": "3.8.5 (default, Sep  4 2020, 02:22:02) \n[Clang 10.0.0 ]",
+        "command_line_arguments": "/Users/faraz0098/opt/miniconda3/bin/mlagents-learn config/ppo/AI.yaml --run-id=AITTestDemo1 --force",
+        "mlagents_version": "0.26.0",
+        "mlagents_envs_version": "0.26.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.8.1",
+        "numpy_version": "1.19.5",
+        "end_time_seconds": "1623900126"
+    },
+    "total": 62.560555858,
+    "count": 1,
+    "self": 0.0311919470000106,
+    "children": {
+        "run_training.setup": {
+            "total": 0.22308027400000086,
+            "count": 1,
+            "self": 0.22308027400000086
+        },
+        "TrainerController.start_learning": {
+            "total": 62.30628363699999,
+            "count": 1,
+            "self": 0.00019169899997706352,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 62.305877302000006,
+                    "count": 1,
+                    "self": 62.305877302000006
+                },
+                "TrainerController._save_models": {
+                    "total": 0.00021463600000970473,
+                    "count": 1,
+                    "self": 0.00021463600000970473
+                }
+            }
+        }
+    }
+}

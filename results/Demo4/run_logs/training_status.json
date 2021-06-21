@@ -1,0 +1,29 @@
+{
+    "AI": {
+        "checkpoints": [
+            {
+                "steps": 2770,
+                "file_path": "results/Demo4/AI/AI-2770.onnx",
+                "reward": 0.0,
+                "creation_time": 1623902193.436925,
+                "auxillary_file_paths": [
+                    "results/Demo4/AI/AI-2770.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2770,
+            "file_path": "results/Demo4/AI.onnx",
+            "reward": 0.0,
+            "creation_time": 1623902193.436925,
+            "auxillary_file_paths": [
+                "results/Demo4/AI/AI-2770.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.26.0",
+        "torch_version": "1.8.1"
+    }
+}
